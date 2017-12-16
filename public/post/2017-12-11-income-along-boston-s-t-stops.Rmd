@@ -1,0 +1,68 @@
+---
+title: Income Along Boston's T Stops
+author: Jorge A Rodriguez MD
+date: '2017-12-11'
+slug: income-along-boston-s-t-stops
+---
+
+These are the packages I used for this project: 
+```{r echo=TRUE, eval=FALSE}
+library(acs)
+library(httr)
+library(plotly)
+library(tidyverse)
+library(ggthemes)
+library(scales)
+library(ggmap)
+```
+
+I created MBTA location csv files to help with the project.
+```{r}
+#Read in the MBTA File 
+mbta = read.csv("../../data/mbta_orange.csv")
+str(mbta)
+```
+
+Some clean up: 
+```{r}
+#Add index column
+#mbta = add_column(mbta, index=1:nrow(mbta))
+
+#Create tract empty
+mbta$tract = NaN
+mbta$county = NaN
+
+mbta$Longitude = as.numeric(mbta$Longitude)
+mbta$Latitude = as.numeric(mbta$Latitude)
+```
+
+Getting Census Tracts: 
+```{r echo=TRUE, eval=FALSE}
+for(i in 1:nrow(mbta)) {
+  x= as.character(mbta$Longitude[i])
+  y = as.character(mbta$Latitude[i])
+  url = sprintf("https://geocoding.geo.census.gov/geocoder/geographies/coordinates?x=%s&y=%s&benchmark=4&vintage=4", x, y)
+  print(url)
+  r= GET(url)
+  g = content(r, "parsed")
+  print(i)
+  mbta$tract[i]= as.character(g$result$geographies$`Census Tracts`[[1]][17]$TRACT[[1]])
+  mbta$county[i] = as.character(g$result$geographies$Counties[[1]]$NAME[[1]])
+}
+```
+Create Median Income
+```{r eval=FALSE}
+mbta$income = NaN
+
+for(i in 1:nrow(mbta)) {
+  tract= mbta$tract[i]
+  my.tract=geo.make(state="MA", county=mbta$county[i], tract=mbta$tract[i])
+  median.income=acs.fetch(geo=my.tract, endyear=2015,  table.name ="B19013")
+  mbta$income[i] = as.character(estimate(median.income[1,1]))[[1]]
+}
+```
+
+
+
+
+

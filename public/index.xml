@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Translated Medicine | Jorge A Rodriguez MD</title>
+    <link>/</link>
+    <description>Recent content on Translated Medicine | Jorge A Rodriguez MD</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 12 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Income Along the Boston T</title>
+      <link>/post/income-along-the-boston-t/</link>
+      <pubDate>Tue, 12 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/income-along-the-boston-t/</guid>
+      <description>As a native New Yorker, I was recentely intrigued by a visualization of household income along I recently ran across a
+library(acs)library(httr)library(plotly)library(tidyverse)library(ggthemes)library(scales)library(ggmap)library(ggplot2)I created MBTA location csv files to help with the project.
+#Read in the MBTA File mbta = read.csv(&amp;quot;C:/Users/jrodr/Documents/RBlog/transMed_V3/data/mbta_orange.csv&amp;quot;)Some clean up:
+#Create tract emptymbta$tract = NaNmbta$county = NaNmbta$income = NaNmbta$Longitude = as.</description>
+    </item>
+    
+    <item>
+      <title>Call Me Anytime</title>
+      <link>/post/call-me-anytime/</link>
+      <pubDate>Mon, 20 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/call-me-anytime/</guid>
+      <description>It was two o’clock on a Tuesday afternoon and Abigail* was in the emergency room for the third time this month. I was able to step away from the day-to-day struggles of the general inpatient medicine floors to see her in the emergency department. I had promised to keep her out of the hospital, and I had failed again.
+As I entered the commotion of the emergency room, I scanned above each door looking for room 33, Abigail’s room.</description>
+    </item>
+    
+    <item>
+      <title>Hacking for the Underserved</title>
+      <link>/post/hacking-for-the-underserved/</link>
+      <pubDate>Wed, 01 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/hacking-for-the-underserved/</guid>
+      <description>What comes first: the problems, or the tools to solve them?
+It seems at times as if the newest technology on the block has become more important than creating actual solutions to healthcare problems. In the digital health landscape, hackathons have run counter to the tools-first tenet. Over a two to three day period, hackathons bring together patients, computer programmers, designers, clinicians and investors to create scalable technology solutions for healthcare’s most pressing problems.</description>
+    </item>
+    
+  </channel>
+</rss>

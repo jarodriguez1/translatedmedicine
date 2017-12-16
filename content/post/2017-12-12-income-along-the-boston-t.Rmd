@@ -1,0 +1,82 @@
+---
+title: "Income Along the Boston T"
+author: "Jorge A Rodriguez MD"
+date: '2017-12-12'
+slug: income-along-the-boston-t
+draft: TRUE
+---
+
+As a native New Yorker, I was recentely intrigued by a visualization of household income along I recently ran across a
+
+
+```{r echo=TRUE, eval=TRUE, message=FALSE}
+library(acs)
+library(httr)
+library(plotly)
+library(tidyverse)
+library(ggthemes)
+library(scales)
+library(ggmap)
+library(ggplot2)
+```
+
+I created MBTA location csv files to help with the project.
+```{r eval=FALSE}
+#Read in the MBTA File 
+mbta = read.csv("C:/Users/jrodr/Documents/RBlog/transMed_V3/data/mbta_orange.csv")
+```
+
+Some clean up: 
+```{r eval=FALSE}
+#Create tract empty
+mbta$tract = NaN
+mbta$county = NaN
+mbta$income = NaN
+
+mbta$Longitude = as.numeric(mbta$Longitude)
+mbta$Latitude = as.numeric(mbta$Latitude)
+```
+
+Getting Census Tracts: 
+```{r echo=TRUE, eval=FALSE}
+for(i in 1:nrow(mbta)) {
+  x= as.character(mbta$Longitude[i])
+  y = as.character(mbta$Latitude[i])
+  url = sprintf("https://geocoding.geo.census.gov/geocoder/geographies/coordinates?x=%s&y=%s&benchmark=4&vintage=4", x, y)
+  print(url)
+  r= GET(url)
+  g = content(r, "parsed")
+  print(i)
+  mbta$tract[i]= as.character(g$result$geographies$`Census Tracts`[[1]][17]$TRACT[[1]])
+  mbta$county[i] = as.character(g$result$geographies$Counties[[1]]$NAME[[1]])
+}
+```
+Create Median Income
+```{r eval=FALSE}
+tractIncome = function(tract,county) {
+  my.tract=geo.make(state="MA", county=county, tract=tract)
+  median.income=acs.fetch(geo=my.tract, endyear=2015,  table.name ="B19013")
+  as.numeric(estimate(median.income[1,1]))[[1]]
+}
+
+mbta$income = mapply(tractIncome, mbta$tract, mbta$county)
+```
+
+```{r eval=TRUE, error=FALSE, message=FALSE}
+mbta=read.csv("mbta_full_orange.csv")
+
+mbta$Station_Name = as.character(mbta$Station_Name)
+mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
+
+plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
+  add_trace(y=~Income, type="scatter", mode="line", line = list(color="orange", width=6)) %>%
+  add_trace(y=~Income, type="scatter", mode="markers", marker=list(color="black", size=8), hoverinfo= 'text',
+        text = ~paste('</br> Station Name:', Station_Name,
+                      '</br> Income:', Income,
+                      '</br> Tract:', tract)) %>%
+  layout(title="Median Income Along the T", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="Median Household Income", range=c(0, 200000)), margin=list(b=160))
+
+```
+
+
+
