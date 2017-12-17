@@ -83,6 +83,6 @@ plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
                       '</br> Tract:', tract)) %>%
   layout(title="Median Household Income Along the Orange Line", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="", range=c(0, 200000)), margin=list(b=160))
 ```
-*Sadly, plotly does not support hover on mobile. So, if you want to see more info try hovering over the markers on your laptop*
+*Sadly, plotly does not support hover on mobile. So, if you want to see more info try hovering over the markers on your laptop.*
 
 In Part II, we will take a look at the <span style="color:red">The Red Line</span>.

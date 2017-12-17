@@ -1,0 +1,95 @@
+---
+title: "Income Along the Boston T [Orange Line]"
+author: "Jorge A Rodriguez MD"
+date: '2017-12-12'
+slug: income-along-the-boston-t
+---
+
+As a native New Yorker, I was recently intrigued by a visualization of household income in NY highlight inequality ( [New Yorker](https://projects.newyorker.com/story/subway/) ). Having lived in Boston for going on 9 years, I've started to call *this place* home. Could I make a similar representation of income in Boston? **That was my challenge!** 
+
+### PART I: <span style="color:orange">The Orange Line</span>
+
+To start I used these packages:  
+1. [acs](https://cran.r-project.org/web/packages/acs/index.html): A simple way to pull census data.  
+2. [httr](https://cran.r-project.org/web/packages/httr/index.html): Let's you work with URLs.  
+3. [tidyverse](https://www.tidyverse.org/): *THE* R package.  
+4. [plotly](https://plot.ly/r/): Interactive visualization in R.
+
+```r
+library(acs)
+library(httr)
+library(plotly)
+library(tidyverse)
+```
+
+I pulled together the names and locations (longitude/latitude) of the [Orange Line stations](../mbta_orange.csv). I needed to change the longitude and latitude to numerics for later use. 
+
+```r
+mbta = read.csv("mbta_orange.csv")
+mbta$Longitude = as.numeric(mbta$Longitude)
+mbta$Latitude = as.numeric(mbta$Latitude)
+```
+
+Next up, creating some empty columns to fill in down below. 
+
+```r
+mbta$tract = NaN
+mbta$county = NaN
+mbta$income = NaN
+```
+
+#### Census Tracts 
+Since I wanted to know the median household income by census tract, I needed to convert the T station coordinates to census tracts. The httr package allowed me to use the census geocoder website. The end of the code gets a little confusing due to the way the geocoding website returns the data.
+*Note: Census tracts cover about 1,200 and 8,000 people*
+
+```r
+for(i in 1:nrow(mbta)) {
+  x= as.character(mbta$Longitude[i])
+  y = as.character(mbta$Latitude[i])
+  url = sprintf("https://geocoding.geo.census.gov/geocoder/geographies/coordinates?x=%s&y=%s&benchmark=4&vintage=4", x, y)
+  print(url)
+  r= GET(url)
+  g = content(r, "parsed")
+  print(i)
+  mbta$tract[i]= as.character(g$result$geographies$`Census Tracts`[[1]][17]$TRACT[[1]])
+  mbta$county[i] = as.character(g$result$geographies$Counties[[1]]$NAME[[1]])
+}
+```
+#### Median Household Income
+With the census tracts for each Orange line T stop in hand, I used the acs package to get the income data. I created a function to do just that, then used the mapply function to repeat it for each station.
+
+```r
+tractIncome = function(tract,county) {
+  my.tract=geo.make(state="MA", county=county, tract=tract)
+  median.income=acs.fetch(geo=my.tract, endyear=2015,  table.name ="B19013")
+  as.numeric(estimate(median.income[1,1]))[[1]]
+}
+
+mbta$income = mapply(tractIncome, mbta$tract, mbta$county)
+```
+
+
+
+#### Visualization
+After a few trials, I realized I needed to change the factor levels of the station names to display them in the order of the stops. With that sorted out, it was on to using plotly to create the interactive graph. *Note that the plotly function has an underscore. This took me a while to figure out.*
+
+**So there you have it, median household income along Boston's Orange line. **
+
+```r
+mbta$Station_Name = as.character(mbta$Station_Name)
+mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
+
+plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
+  add_trace(y=~Income, type="scatter", mode="line", line = list(color="orange", width=6)) %>%
+  add_trace(y=~Income, type="scatter", mode="markers", marker=list(color="black", size=8), hoverinfo= 'text',
+        text = ~paste('</br><b>Station Name:</b>', Station_Name,
+                      '</br> Income:', Income,
+                      '</br> Tract:', tract)) %>%
+  layout(title="Median Household Income Along the Orange Line", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="", range=c(0, 200000)), margin=list(b=160))
+```
+
+<!--html_preserve--><div id="409421f447ef" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="409421f447ef">{"x":{"visdat":{"40943fee65e3":["function () ","plotlyVisDat"]},"cur_data":"40943fee65e3","attrs":{"40943fee65e3":{"x":{},"hoverinfo":"none","alpha":1,"sizes":[10,100],"y":{},"type":"scatter","mode":"line","line":{"color":"orange","width":6}},"40943fee65e3.1":{"x":{},"hoverinfo":"text","alpha":1,"sizes":[10,100],"y":{},"type":"scatter","mode":"markers","marker":{"color":"black","size":8},"text":{}}},"layout":{"margin":{"b":160,"l":60,"t":25,"r":10},"title":"Median Household Income Along the Orange Line","showlegend":false,"xaxis":{"domain":[0,1],"title":"","tickangle":-90,"type":"category","categoryorder":"array","categoryarray":["Oak Grove","Malden Center","Wellington","Assembly","Sullivan Square","Community College","North Station ","Haymarket","State Street","Downtown Crossing","Chinatown","Tufts Medical Center","Back Bay","Massachusetts Ave. ","Ruggles","Roxbury Crossing","Jackson Square","Stony Brook","Green Street","Forest Hills"]},"yaxis":{"domain":[0,1],"title":"","range":[0,200000]},"hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"data":[{"x":["Oak Grove","Malden Center","Wellington","Assembly","Sullivan Square","Community College","North Station ","Haymarket","State Street","Downtown Crossing","Chinatown","Tufts Medical Center","Back Bay","Massachusetts Ave. ","Ruggles","Roxbury Crossing","Jackson Square","Stony Brook","Green Street","Forest Hills"],"hoverinfo":["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],"y":[81875,39934,72202,80455,121096,121096,81607,102277,102277,89855,89855,20905,98482,16993,16892,42585,20914,75873,77462,64116],"type":"scatter","mode":"line+lines","line":{"fillcolor":"rgba(31,119,180,1)","color":"orange","width":6},"xaxis":"x","yaxis":"y","frame":null},{"x":["Oak Grove","Malden Center","Wellington","Assembly","Sullivan Square","Community College","North Station ","Haymarket","State Street","Downtown Crossing","Chinatown","Tufts Medical Center","Back Bay","Massachusetts Ave. ","Ruggles","Roxbury Crossing","Jackson Square","Stony Brook","Green Street","Forest Hills"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"y":[81875,39934,72202,80455,121096,121096,81607,102277,102277,89855,89855,20905,98482,16993,16892,42585,20914,75873,77462,64116],"type":"scatter","mode":"markers","marker":{"fillcolor":"rgba(255,127,14,1)","color":"black","size":8,"line":{"color":"transparent"}},"text":["<\/br><b>Station Name:<\/b> Oak Grove <\/br> Income: 81875 <\/br> Tract: 341101","<\/br><b>Station Name:<\/b> Malden Center <\/br> Income: 39934 <\/br> Tract: 341300","<\/br><b>Station Name:<\/b> Wellington <\/br> Income: 72202 <\/br> Tract: 339801","<\/br><b>Station Name:<\/b> Assembly <\/br> Income: 80455 <\/br> Tract: 350103","<\/br><b>Station Name:<\/b> Sullivan Square <\/br> Income: 121096 <\/br> Tract: 40600","<\/br><b>Station Name:<\/b> Community College <\/br> Income: 121096 <\/br> Tract: 40600","<\/br><b>Station Name:<\/b> North Station  <\/br> Income: 81607 <\/br> Tract: 20303","<\/br><b>Station Name:<\/b> Haymarket <\/br> Income: 102277 <\/br> Tract: 30300","<\/br><b>Station Name:<\/b> State Street <\/br> Income: 102277 <\/br> Tract: 30300","<\/br><b>Station Name:<\/b> Downtown Crossing <\/br> Income: 89855 <\/br> Tract: 70101","<\/br><b>Station Name:<\/b> Chinatown <\/br> Income: 89855 <\/br> Tract: 70101","<\/br><b>Station Name:<\/b> Tufts Medical Center <\/br> Income: 20905 <\/br> Tract: 70200","<\/br><b>Station Name:<\/b> Back Bay <\/br> Income: 98482 <\/br> Tract: 70700","<\/br><b>Station Name:<\/b> Massachusetts Ave.  <\/br> Income: 16993 <\/br> Tract: 10405","<\/br><b>Station Name:<\/b> Ruggles <\/br> Income: 16892 <\/br> Tract: 80601","<\/br><b>Station Name:<\/b> Roxbury Crossing <\/br> Income: 42585 <\/br> Tract: 81400","<\/br><b>Station Name:<\/b> Jackson Square <\/br> Income: 20914 <\/br> Tract: 81300","<\/br><b>Station Name:<\/b> Stony Brook <\/br> Income: 75873 <\/br> Tract: 120301","<\/br><b>Station Name:<\/b> Green Street <\/br> Income: 77462 <\/br> Tract: 120400","<\/br><b>Station Name:<\/b> Forest Hills <\/br> Income: 64116 <\/br> Tract: 110103"],"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1}},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":{"render":[{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null}]}}</script><!--/html_preserve-->
+*Sadly, plotly does not support hover on mobile. So, if you want to see more info try hovering over the markers on your laptop.*
+
+In Part II, we will take a look at the <span style="color:red">The Red Line</span>.
