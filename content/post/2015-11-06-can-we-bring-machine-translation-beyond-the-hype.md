@@ -1,0 +1,13 @@
+---
+title: Can We Bring Machine Translation Beyond The Hype?
+author: Jorge A Rodriguez MD
+date: '2015-11-06'
+slug: can-we-bring-machine-translation-beyond-the-hype
+---
+20% of the U.S. population speaks a language other than English at home and 8.6% defined as being limited English proficient. How do we reach all of these patients? Google Translate! or Google Translate?
+
+Machine translation, the power behind Google Translate, offers an opportunity to reach our limited English proficiency patients. Take English content, parse it and use statistical algorithms to translate the material. The low hanging fruit are public health materials, consent forms, clinic forms, insurance forms and other standard or reusable materials. In its current state, it isn’t quite a plug and play solution. The output can be, let’s say, [unexpected](https://www.theguardian.com/world/2015/nov/03/google-translate-error-as-pontes-spain-clitoris-food-festival-grelo-galicia) (though it doesn’t stop many hospitals from using it for hospital website translation, but that’s another story). Yet, it’s not all or nothing. Machine translation, as it stands today, is a tool. The [TransPHorm project](http://melodi.ee.washington.edu/people/katrin/projects/transphorm.html) has shown that the combination of machine translation with human post-editing shortens creation time and cuts down on cost of creating linguistically diverse materials.
+
+Next up? Discharge summaries, patient portals, [OpenNotes](http://www.myopennotes.org/). This is where machine translation can really make a difference. Having an English only discharge summaries is just asking for trouble. Without a resource reviewing new medications, appointments and expectations after discharge, these patients are left with little to fallback on. With some forethought, some healthcare centers offer to translate discharge summaries ahead of time. However, practically speaking this becomes untenable given the constraints of day to day medical practice. Similarly, English only patient portals and OpenNotes won’t matter to patients that can’t read what is up on their screen. If content is not linguistically accessible, instead of empowering and engaging patient through technology, we will propagate groups of patients that just don’t have the same access.
+
+With further research and projects like TransPHorm, we will be able to come close to a faster and cost effective automated translation service. Technology applications in healthcare suffer from [hype](https://en.wikipedia.org/wiki/Hype_cycle). In machine translation, we have an opportunity go #beyondthehype and extend access.
