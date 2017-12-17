@@ -5,15 +5,15 @@ date: '2017-12-12'
 slug: income-along-the-boston-t
 ---
 
-As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the [New Yorker](https://projects.newyorker.com/story/subway/). Having live in Boston for going on 9 years, I've started to call *this place* home. Could I make a similar representation of income in Boston? **That was my challenge** 
+As a native New Yorker, I was recently intrigued by a visualization of household income in NY highlight inequality, [New Yorker](https://projects.newyorker.com/story/subway/). Having lived in Boston for going on 9 years, I've started to call *this place* home. Could I make a similar representation of income in Boston? **That was my challenge!** 
 
 ### PART I: <span style="color:orange">The Orange Line</span>
 
 To start I used these packages:  
-1. [acs](https://cran.r-project.org/web/packages/acs/index.html): A simple way to pull census data  
-2. [httr](https://cran.r-project.org/web/packages/httr/index.html): Let's your work with URLs  
-3. [tidyverse](https://www.tidyverse.org/): *THE* R package  
-4. [plotly](https://plot.ly/r/): Interactive graphing in R
+1. [acs](https://cran.r-project.org/web/packages/acs/index.html): A simple way to pull census data.  
+2. [httr](https://cran.r-project.org/web/packages/httr/index.html): Let's your work with URLs.  
+3. [tidyverse](https://www.tidyverse.org/): *THE* R package.  
+4. [plotly](https://plot.ly/r/): Interactive visualization in R.
 ```{r echo=TRUE, eval=TRUE, message=FALSE}
 library(acs)
 library(httr)
@@ -21,14 +21,14 @@ library(plotly)
 library(tidyverse)
 ```
 
-I pulled together the names and locations(longitide/latitude) of the [Orange Line stations](../mbta_orange.csv). I needed to change the longitude and latitude to numerics.
+I pulled together the names and locations(longitide/latitude) of the [Orange Line stations](../mbta_orange.csv). I needed to change the longitude and latitude to numerics for later use. 
 ```{r eval=FALSE}
 mbta = read.csv("mbta_orange.csv")
 mbta$Longitude = as.numeric(mbta$Longitude)
 mbta$Latitude = as.numeric(mbta$Latitude)
 ```
 
-Next up, creating some empty columns that we will fill in down below. 
+Next up, creating some empty columns to fill in down below. 
 ```{r eval=FALSE}
 mbta$tract = NaN
 mbta$county = NaN
@@ -36,7 +36,7 @@ mbta$income = NaN
 ```
 
 #### Census Tracts 
-Since I wanted to know the median household income by census tract, I needed to convert the coordinates I had to census tract. I used the httr package to use the census geocoder website. The end of the code gets a little confusing due to the way the geocoding website returns the data.
+Since I wanted to know the median household income by census tract, I needed to convert the T station coordinates to census tracts. I used the httr package to use the census geocoder website. The end of the code gets a little confusing due to the way the geocoding website returns the data.
 *Note: Census tracts cover about 1,200 and 8,000 people*
 ```{r echo=TRUE, eval=FALSE}
 for(i in 1:nrow(mbta)) {
@@ -52,7 +52,7 @@ for(i in 1:nrow(mbta)) {
 }
 ```
 #### Median Household Income
-With the census tracts for each Orange line T stop in hand, I used the acs package to get income data. I created a function to do just that, then used the mapply function to repeat it for each station.
+With the census tracts for each Orange line T stop in hand, I used the acs package to get the income data. I created a function to do just that, then used the mapply function to repeat it for each station.
 ```{r eval=FALSE}
 tractIncome = function(tract,county) {
   my.tract=geo.make(state="MA", county=county, tract=tract)
@@ -68,7 +68,9 @@ mbta=read.csv("mbta_full_orange.csv")
 ```
 
 #### Visualization
-After a few trials, I realized I needed to change the factor levels of the station names to display them in the order of the stops. With that sorted out, it was on to using plotly to create the interactive graph. *Note that the plotly function has an underscore.* This took me a while to figure out. So there you have it, median household income along Boston's Orange line. 
+After a few trials, I realized I needed to change the factor levels of the station names to display them in the order of the stops. With that sorted out, it was on to using plotly to create the interactive graph. *Note that the plotly function has an underscore. This took me a while to figure out.*
+
+**So there you have it, median household income along Boston's Orange line. **
 ```{r eval=TRUE, error=FALSE, message=FALSE}
 mbta$Station_Name = as.character(mbta$Station_Name)
 mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
@@ -79,7 +81,6 @@ plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
         text = ~paste('</br><b>Station Name:</b>', Station_Name,
                       '</br> Income:', Income,
                       '</br> Tract:', tract)) %>%
-  layout(title="Median Income Along the Orange Line", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="Median Household Income", range=c(0, 200000)), margin=list(b=160))
-
+  layout(title="Median Household Income Along the Orange Line", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="", range=c(0, 200000)), margin=list(b=160))
 ```
 In Part II, we will take a look at the <span style="color:red">The Red Line</span>.

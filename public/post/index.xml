@@ -17,8 +17,9 @@
       <pubDate>Tue, 12 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/income-along-the-boston-t/</guid>
-      <description>As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the New Yorker. Having live in Boston for going on 9 years, I’ve started to call this place home. Could I make a similar representation of income in Boston? That was my challenge
-PART I: The Orange LineTo start I used these packages:</description>
+      <description>As a native New Yorker, I was recently intrigued by a visualization of household income in NY highlight inequality, New Yorker. Having lived in Boston for going on 9 years, I’ve started to call this place home. Could I make a similar representation of income in Boston? That was my challenge!
+PART I: The Orange LineTo start I used these packages:
+1. acs: A simple way to pull census data.</description>
     </item>
     
     <item>
