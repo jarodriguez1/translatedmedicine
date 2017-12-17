@@ -5,7 +5,7 @@ date: '2017-12-12'
 slug: income-along-the-boston-t
 ---
 
-As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the ![New Yorker](https://projects.newyorker.com/story/subway/).
+As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the [New Yorker](https://projects.newyorker.com/story/subway/).
 
 
 ```{r echo=TRUE, eval=TRUE, message=FALSE}
@@ -21,8 +21,7 @@ library(ggplot2)
 
 I created MBTA location csv files to help with the project.
 ```{r eval=FALSE}
-#Read in the MBTA File 
-mbta = read.csv("C:/Users/jrodr/Documents/RBlog/transMed_V3/data/mbta_orange.csv")
+mbta = read.csv("mbta_orange.csv")
 ```
 
 Some clean up: 
@@ -61,9 +60,12 @@ tractIncome = function(tract,county) {
 mbta$income = mapply(tractIncome, mbta$tract, mbta$county)
 ```
 
-```{r eval=TRUE, error=FALSE, message=FALSE}
+```{r eval=TRUE, echo=FALSE}
 mbta=read.csv("mbta_full_orange.csv")
+```
 
+
+```{r eval=TRUE, error=FALSE, message=FALSE}
 mbta$Station_Name = as.character(mbta$Station_Name)
 mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
 

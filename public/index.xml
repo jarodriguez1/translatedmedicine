@@ -17,10 +17,10 @@
       <pubDate>Tue, 12 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/income-along-the-boston-t/</guid>
-      <description>As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the .
+      <description>As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the New Yorker.
 library(acs)library(httr)library(plotly)library(tidyverse)library(ggthemes)library(scales)library(ggmap)library(ggplot2)I created MBTA location csv files to help with the project.
-#Read in the MBTA File mbta = read.csv(&amp;quot;C:/Users/jrodr/Documents/RBlog/transMed_V3/data/mbta_orange.csv&amp;quot;)Some clean up:
-#Create tract emptymbta$tract = NaNmbta$county = NaNmbta$income = NaNmbta$Longitude = as.</description>
+mbta = read.csv(&amp;quot;mbta_orange.csv&amp;quot;)Some clean up:
+#Create tract emptymbta$tract = NaNmbta$county = NaNmbta$income = NaNmbta$Longitude = as.numeric(mbta$Longitude)mbta$Latitude = as.</description>
     </item>
     
     <item>
@@ -41,6 +41,15 @@ As I entered the commotion of the emergency room, I scanned above each door look
       <guid>/post/hacking-for-the-underserved/</guid>
       <description>What comes first: the problems, or the tools to solve them?
 It seems at times as if the newest technology on the block has become more important than creating actual solutions to healthcare problems. In the digital health landscape, hackathons have run counter to the tools-first tenet. Over a two to three day period, hackathons bring together patients, computer programmers, designers, clinicians and investors to create scalable technology solutions for healthcare’s most pressing problems.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Fri, 11 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>I am a hospitalist and Clinical Informatics fellow in the Division of Clinical Informatics at BIDMC. My research focuses on achieving digital health equity. My passion lies in the meaningful intersection of medicine, social justice, and technology. Thus far, I have presented my work revealing a new digital divide for limited English proficiency patients at local, regional, and national conferences. I was recently awarded the inaugural BIDMC UiM Fellow and Jr.</description>
     </item>
     
   </channel>

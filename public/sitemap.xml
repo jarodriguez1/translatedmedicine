@@ -8,11 +8,6 @@
   </url>
   
   <url>
-    <loc>/about/</loc>
-    <lastmod>2017-12-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/call-me-anytime/</loc>
     <lastmod>2017-02-20T00:00:00+00:00</lastmod>
   </url>
@@ -20,6 +15,17 @@
   <url>
     <loc>/post/hacking-for-the-underserved/</loc>
     <lastmod>2016-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+    <lastmod>2015-12-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+    <lastmod>2015-12-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
