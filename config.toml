@@ -1,5 +1,5 @@
 # Site settings
-baseurl = "https://translatedmedicine.com/"
+baseurl = "https://translatedmedicine.netlify.com"
 languageCode = "en-us"
 title = "Translated Medicine | Jorge A Rodriguez MD"
 theme = "hugo-cactus-theme"
