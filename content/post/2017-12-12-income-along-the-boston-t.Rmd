@@ -50,7 +50,6 @@ for(i in 1:nrow(mbta)) {
   mbta$county[i] = as.character(g$result$geographies$Counties[[1]]$NAME[[1]])
 }
 ```
-
 #### Median Household Income
 With the census tracts for each Orange line T stop in hand, I used the acs package to get income data. I created a function to do just that, then used the mapply function to repeat it for each station.
 ```{r eval=FALSE}
@@ -68,7 +67,7 @@ mbta=read.csv("mbta_full_orange.csv")
 ```
 
 #### Visualization
-After a few trials, I realized I needed to change the factor levels of the station names to display them in the order of the stops. With that sorted out, it was on to using plotly to create the interactive graph. *Note that the plotly function has an underscore.* This took me a while to figure out. So there you have it! Median household income along Boston's Orange line
+After a few trials, I realized I needed to change the factor levels of the station names to display them in the order of the stops. With that sorted out, it was on to using plotly to create the interactive graph. *Note that the plotly function has an underscore.* This took me a while to figure out. So there you have it, median household income along Boston's Orange line. 
 ```{r eval=TRUE, error=FALSE, message=FALSE}
 mbta$Station_Name = as.character(mbta$Station_Name)
 mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
@@ -79,7 +78,9 @@ plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
         text = ~paste('</br><b>Station Name:</b>', Station_Name,
                       '</br> Income:', Income,
                       '</br> Tract:', tract)) %>%
-  layout(title="Median Income Along the T", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="Median Household Income", range=c(0, 200000)), margin=list(b=160))
+  layout(title="Median Income Along the Orange Line", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="Median Household Income", range=c(0, 200000)), margin=list(b=160))
 
 ```
+In Part II, we will take a look at the <span style="color:red">The Red Line</span>.
+
 *Note: Census tracts cover about 1,200 and 8,000 people*
