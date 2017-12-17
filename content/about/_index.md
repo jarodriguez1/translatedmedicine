@@ -1,7 +1,6 @@
 +++
 date = "2017-12-11"
 title = "About"
-hidden = false
 menu = "main"
 +++
 
