@@ -8,7 +8,7 @@
   </url>
   
   <url>
-    <loc>/about/</loc>
+    <loc>/about/about/</loc>
     <lastmod>2017-12-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -20,6 +20,12 @@
   <url>
     <loc>/post/hacking-for-the-underserved/</loc>
     <lastmod>2016-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+    <lastmod>2017-12-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>

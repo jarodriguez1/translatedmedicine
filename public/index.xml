@@ -24,6 +24,15 @@ library(acs)library(httr)library(plotly)library(tidyverse)library(ggthemes)
     </item>
     
     <item>
+      <title>About</title>
+      <link>/about/about/</link>
+      <pubDate>Mon, 11 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/about/about/</guid>
+      <description>I am a hospitalist and Clinical Informatics fellow in the Division of Clinical Informatics at BIDMC. My research focuses on achieving digital health equity. My passion lies in the meaningful intersection of medicine, social justice, and technology. Thus far, I have presented my work revealing a new digital divide for limited English proficiency patients at local, regional, and national conferences. I was recently awarded the inaugural BIDMC UiM Fellow and Jr.</description>
+    </item>
+    
+    <item>
       <title>Call Me Anytime</title>
       <link>/post/call-me-anytime/</link>
       <pubDate>Mon, 20 Feb 2017 00:00:00 +0000</pubDate>
