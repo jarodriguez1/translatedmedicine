@@ -12,15 +12,13 @@
     
     
     <item>
-      <title>Income Along the Boston T</title>
+      <title>Income Along the Boston T [Orange Line]</title>
       <link>/post/income-along-the-boston-t/</link>
       <pubDate>Tue, 12 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/income-along-the-boston-t/</guid>
-      <description>As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the New Yorker.
-library(acs)library(httr)library(plotly)library(tidyverse)library(ggthemes)library(scales)library(ggmap)library(ggplot2)I created MBTA location csv files to help with the project.
-mbta = read.csv(&amp;quot;mbta_orange.csv&amp;quot;)Some clean up:
-#Create tract emptymbta$tract = NaNmbta$county = NaNmbta$income = NaNmbta$Longitude = as.numeric(mbta$Longitude)mbta$Latitude = as.</description>
+      <description>As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the New Yorker. Having live in Boston for going on 9 years, I’ve started to call this place home. Could I make a similar representation of income in Boston? That was my challenge
+PART I: The Orange LineTo start I used these packages:</description>
     </item>
     
     <item>
