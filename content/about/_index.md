@@ -2,7 +2,7 @@
 date = "2017-12-11"
 title = "About"
 menu = "main"
-hidden = true
+hidden = false
 +++
 
 I am a hospitalist and Clinical Informatics fellow in the Division of Clinical Informatics at BIDMC. My research focuses on achieving digital health equity. My passion lies in the meaningful intersection of medicine, social justice, and technology. Thus far, I have presented my work revealing a new digital divide for limited English proficiency patients at local, regional, and national conferences. I was recently awarded the inaugural BIDMC UiM Fellow and Jr. Faculty Career Development Research Award. I continue to foster alliances with community stakeholders to use technology as a transformative tool for empowering underserved patients in their care.

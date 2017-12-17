@@ -3,7 +3,6 @@ title: "Income Along the Boston T"
 author: "Jorge A Rodriguez MD"
 date: '2017-12-12'
 slug: income-along-the-boston-t
-draft: TRUE
 ---
 
 As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the ![New Yorker](https://projects.newyorker.com/story/subway/).
