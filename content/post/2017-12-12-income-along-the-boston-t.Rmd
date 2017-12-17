@@ -35,8 +35,9 @@ mbta$county = NaN
 mbta$income = NaN
 ```
 
-#### Census Tracts
+#### Census Tracts 
 Since I wanted to know the median household income by census tract, I needed to convert the coordinates I had to census tract. I used the httr package to use the census geocoder website. The end of the code gets a little confusing due to the way the geocoding website returns the data.
+*Note: Census tracts cover about 1,200 and 8,000 people*
 ```{r echo=TRUE, eval=FALSE}
 for(i in 1:nrow(mbta)) {
   x= as.character(mbta$Longitude[i])
@@ -82,5 +83,3 @@ plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
 
 ```
 In Part II, we will take a look at the <span style="color:red">The Red Line</span>.
-
-*Note: Census tracts cover about 1,200 and 8,000 people*
