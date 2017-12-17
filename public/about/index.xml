@@ -1,30 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Abouts on Translated Medicine | Jorge A Rodriguez MD</title>
+    <title>About Me on Translated Medicine | Jorge A Rodriguez MD</title>
     <link>/about/</link>
-    <description>Recent content in Abouts on Translated Medicine | Jorge A Rodriguez MD</description>
+    <description>Recent content in About Me on Translated Medicine | Jorge A Rodriguez MD</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Dec 2013 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/about/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>About Me</title>
-      <link>/about/about/</link>
-      <pubDate>Wed, 11 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>/about/about/</guid>
-      <description>I am a hospitalist and Clinical Informatics fellow in the Division of Clinical Informatics at BIDMC.
-My research focuses on achieving digital health equity. My passion lies in the meaningful intersection of medicine, social justice, and technology. I also like to spend my time writing, tinkering, and coding (currently in R).
-Where can you find me?
- Twitter
-LinkedIn
-Email: translatedmedicine@gmail.com
- </description>
-    </item>
     
   </channel>
 </rss>
