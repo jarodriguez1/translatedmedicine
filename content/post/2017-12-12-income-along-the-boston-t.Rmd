@@ -6,7 +6,7 @@ slug: income-along-the-boston-t
 draft: TRUE
 ---
 
-As a native New Yorker, I was recentely intrigued by a visualization of household income along I recently ran across a
+As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the ![New Yorker](https://projects.newyorker.com/story/subway/).
 
 
 ```{r echo=TRUE, eval=TRUE, message=FALSE}

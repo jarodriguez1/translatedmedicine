@@ -17,7 +17,7 @@
       <pubDate>Tue, 12 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/income-along-the-boston-t/</guid>
-      <description>As a native New Yorker, I was recentely intrigued by a visualization of household income along I recently ran across a
+      <description>As a native New Yorker, I was recently intrigued by a visualization of household income in NY to highlight inequality on the .
 library(acs)library(httr)library(plotly)library(tidyverse)library(ggthemes)library(scales)library(ggmap)library(ggplot2)I created MBTA location csv files to help with the project.
 #Read in the MBTA File mbta = read.csv(&amp;quot;C:/Users/jrodr/Documents/RBlog/transMed_V3/data/mbta_orange.csv&amp;quot;)Some clean up:
 #Create tract emptymbta$tract = NaNmbta$county = NaNmbta$income = NaNmbta$Longitude = as.</description>
