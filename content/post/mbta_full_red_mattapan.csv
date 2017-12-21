@@ -1,0 +1,25 @@
+"","Station_Name","Line","Latitude","Longitude","tract","county","Income","income"
+"1","Alewife","Red",42.395428,-71.142483,"354900","Middlesex County",51281,51281
+"2","Davis","Red",42.39674,-71.121815,"350400","Middlesex County",87600,87600
+"3","Porter","Red",42.3884,-71.119149,"354700","Middlesex County",112734,112734
+"4","Harvard","Red",42.373362,-71.118956,"353700","Middlesex County",59440,59440
+"5","Central","Red",42.365486,-71.103802,"353000","Middlesex County",63008,63008
+"6","Kendall/MIT","Red",42.36249079,-71.08617653,"352400","Middlesex County",43750,43750
+"7","Charles/MGH","Red",42.361166,-71.070628,"020200","Suffolk County",74800,74800
+"8","Park","Red",42.35639457,-71.0624242,"981700","Suffolk County",102102,NA
+"9","Downtown Crossing","Red",42.355518,-71.060225,"070101","Suffolk County",89855,89855
+"10","South Station","Red",42.352271,-71.055242,"070101","Suffolk County",89855,89855
+"11","Broadway","Red",42.342622,-71.056967,"061200","Suffolk County",102174,102174
+"12","Andrew","Red",42.330154,-71.057655,"061200","Suffolk County",102174,102174
+"13","JFK/Umass","Red",42.320685,-71.052391,"090700","Suffolk County",51885,51885
+"14","Savin Hill","Red",42.31129,-71.053331,"091001","Suffolk County",64000,64000
+"15","Fields Corner","Red",42.300093,-71.061667,"092000","Suffolk County",39608,39608
+"16","Shawmut","Red",42.29312583,-71.06573796,"092200","Suffolk County",67891,67891
+"17","Ashmonth","Red",42.284652,-71.064489,"100800","Suffolk County",73032,73032
+"18","Cedar Grove","Red",42.279682,-71.060432,"100800","Suffolk County",73032,73032
+"19","Butler","Red",42.272343,-71.062584,"100800","Suffolk County",73032,73032
+"20","Milton","Red",42.270306,-71.067673,"416400","Norfolk County",121250,121250
+"21","Central Ave.","Red",42.270027,-71.073334,"416300","Norfolk County",108750,108750
+"22","Valley Road","Red",42.268322,-71.081566,"416300","Norfolk County",108750,108750
+"23","Capen Street","Red",42.267712,-71.087753,"416300","Norfolk County",108750,108750
+"24","Mattapan","Red",42.267762,-71.092241,"101002","Suffolk County",29365,29365

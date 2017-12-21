@@ -1,0 +1,19 @@
+,Station_Name,Line,Latitude,Longitude,tract,county,Income
+1,Alewife,Red,42.395428,-71.142483,354900,Middlesex County,51281
+2,Davis,Red,42.39674,-71.121815,350400,Middlesex County,87600
+3,Porter,Red,42.3884,-71.119149,354700,Middlesex County,112734
+4,Harvard,Red,42.373362,-71.118956,353700,Middlesex County,59440
+5,Central,Red,42.365486,-71.103802,353000,Middlesex County,63008
+6,Kendall/MIT,Red,42.362491,-71.086177,352400,Middlesex County,43750
+7,Charles/MGH,Red,42.361166,-71.070628,20200,Suffolk County,74800
+8,Park,Red,42.356395,-71.062424,981700,Suffolk County,102102
+9,Downtown Crossing,Red,42.355518,-71.060225,70101,Suffolk County,89855
+10,South Station,Red,42.352271,-71.055242,70101,Suffolk County,89855
+11,Broadway,Red,42.342622,-71.056967,61200,Suffolk County,102174
+12,Andrew,Red,42.330154,-71.057655,61200,Suffolk County,102174
+13,JFK/Umass,Red,42.320685,-71.052391,90700,Suffolk County,51885
+14,North Quincy,Red,42.275275,-71.029583,417502,Norfolk County,60298
+15,Wollaston,Red,42.266514,-71.020337,417100,Norfolk County,86434
+16,Quincy Center,Red,42.251809,-71.005409,417701,Norfolk County,51354
+17,Quincy Adams,Red,42.233391,-71.007153,418004,Norfolk County,57578
+18,Braintree,Red,42.207854,-71.001139,419800,Norfolk County,81563
