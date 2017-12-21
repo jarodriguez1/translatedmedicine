@@ -19,7 +19,7 @@
       <guid>/post/income-along-the-boston-t-ii/</guid>
       <description>In the first part of this series, I went through my approach for creating a New Yorker inspired visualization of income along The Orange Line on the Boston T.
 For this post, we take a look at the The Red Line. Below you will see median household income along both lines of the Boston Red Line.
-Ashmont/Mattapan Red LineBraintree Red Line{&#34;</description>
+Ashmont/Mattapan Red Line{&#34;x&#34;:{&#34;visdat&#34;:{&#34;490425016238&#34;:[&#34;function () &#34;,&#34;plotlyVisDat&#34;]},&#34;cur_data&#34;:&#34;490425016238&#34;,&#34;attrs&#34;:{&#34;490425016238&#34;:{&#34;x&#34;:{},&#34;hoverinfo&#34;:&#34;none&#34;,&#34;alpha&#34;:1,&#34;sizes&#34;:[10,100],&#34;y&#34;:{},&#34;type&#34;:&#34;scatter&#34;,&#34;mode&#34;:&#34;line&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;red&#34;,&#34;width&#34;:6}},&#34;490425016238.1&#34;:{&#34;x&#34;:{},&#34;hoverinfo&#34;:&#34;text&#34;,&#34;alpha&#34;:1,&#34;sizes&#34;:[10,100],&#34;y&#34;:{},&#34;type&#34;:&#34;scatter&#34;,&#34;mode&#34;:&#34;markers&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;black&#34;,&#34;size&#34;:8},&#34;text&#34;:{}}},&#34;layout&#34;:{&#34;margin&#34;:{&#34;b&#34;:160,&#34;l&#34;:60,&#34;t&#34;:25,&#34;r&#34;:10},&#34;title&#34;:&#34;Median Household Income Along the Red Line [Ashmont/Mattapan]&#34;</description>
     </item>
     
     <item>
