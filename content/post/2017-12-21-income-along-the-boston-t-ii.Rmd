@@ -18,7 +18,7 @@ mbta = read.csv("mbta_full_red_mattapan.csv")
 mbta$Station_Name = as.character(mbta$Station_Name)
 mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
 
-p = plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
+plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
   add_trace(y=~Income, type="scatter", mode="line", line = list(color="red", width=6)) %>%
   add_trace(y=~Income, type="scatter", mode="markers", marker=list(color="black", size=8), hoverinfo= 'text',
         text = ~paste('</br><b>Station Name:</b>', Station_Name,
