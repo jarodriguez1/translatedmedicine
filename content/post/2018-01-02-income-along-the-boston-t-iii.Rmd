@@ -5,7 +5,7 @@ date: '2018-01-02'
 slug: income-along-the-boston-t-iii
 ---
 
-In my first two parts of this series, we looked at the changes in income along the [<span style="color:orange">The Orange Line</span>](http://translatedmedicine.com/post/income-along-the-boston-t/) and [<span style="color:red">The Red Line</span>](http://translatedmedicine.com/post/income-along-the-boston-t-ii/). I went through [my approach](http://translatedmedicine.com/post/income-along-the-boston-t/) for creating a [New Yorker](https://projects.newyorker.com/story/subway/) inspired visualization of income along the Boston T. 
+In the first two parts of this series, we looked at the changes in income along the [<span style="color:orange">The Orange Line</span>](http://translatedmedicine.com/post/income-along-the-boston-t/) and [<span style="color:red">The Red Line</span>](http://translatedmedicine.com/post/income-along-the-boston-t-ii/). I went through [my approach](http://translatedmedicine.com/post/income-along-the-boston-t/) for creating a [New Yorker](https://projects.newyorker.com/story/subway/) inspired visualization of income along the Boston T. 
 
 For this post, we take a look at the <span style="color:green">The Green Line</span>. Below you will see median household income along each of the four lines of the Boston Green Line. 
 
@@ -89,12 +89,12 @@ eLine = plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
 eLine
 ```
 *A few notes: *   
-*1. Census tracts cover about 1,200 and 8,000 people*  
+*1. Census tracts cover about 1,200 and 8,000 people.*  
 *2. The census tract for Park and Boylston St. did not return a median household income, so I used an adjacent census tract instead.*  
 *3. Sadly, plotly does not support hover on mobile. So, if you want to see more info try hovering over the markers on your laptop.*  
-*6. For code details, please see the first [first post](http://translatedmedicine.com/post/income-along-the-boston-t/).*  
+*4. For code details, please see the first [first post](http://translatedmedicine.com/post/income-along-the-boston-t/).*  
 
-**In Part III, we will take a look at the <span style="color:blue">The Blue Line</span>.**
+**In Part IV, we will take a look at the <span style="color:blue">The Blue Line</span>.**
 
 
 
