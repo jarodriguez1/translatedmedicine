@@ -1,0 +1,21 @@
+,Station_Name,Line,Latitude,Longitude,tract,county,Income
+1,Riverside,Green D,42.337059,-71.251742,374800,Middlesex County,122750
+2,Woodland,Green D,42.333374,-71.244301,374300,Middlesex County,182500
+3,Waban,Green D,42.325943,-71.230728,374300,Middlesex County,182500
+4,Eliot,Green D,42.319023,-71.216713,374200,Middlesex County,165670
+5,Newton Highlands,Green D,42.321735,-71.206116,374200,Middlesex County,165670
+6,Newton Centre,Green D,42.329391,-71.192429,373800,Middlesex County,101167
+7,Chestnut Hill,Green D,42.326653,-71.165314,373600,Middlesex County,169464
+8,Reservoir,Green D,42.335027,-71.148952,400600,Norfolk County,93000
+9,Beaconsfield,Green D,42.335846,-71.140823,400600,Norfolk County,93000
+10,Brookline Hills,Green D,42.331333,-71.126999,400700,Norfolk County,131705
+11,Brookline Village,Green D,42.332774,-71.116296,400900,Norfolk County,61154
+12,Longwood,Green D,42.341145,-71.110451,400100,Norfolk County,80679
+13,Fenway,Green D,42.345394,-71.104187,10204,Suffolk County,30000
+14,Kenmore,Green D,42.348949,-71.095169,10104,Suffolk County,55278
+15,Hynes Convention Center,Green D,42.347888,-71.087903,10701,Suffolk County,98595
+16,Copley,Green D,42.349974,-71.077447,10600,Suffolk County,93482
+17,Arlington,Green D,42.351902,-71.070893,10702,Suffolk County,118508
+18,Boylston,Green D,42.35302,-71.06459,981700,Suffolk County,102102
+19,Park,Green D,42.35639457,-71.0624242,981700,Suffolk County,102102
+20,Government Center,Green D,42.359705,-71.059215,30300,Suffolk County,102277

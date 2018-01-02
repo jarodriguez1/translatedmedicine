@@ -1,0 +1,23 @@
+,Station_Name,Line,Latitude,Longitude,tract,county,Income
+1,Cleveland Circle,Green C,42.336142,-71.149326,502,Suffolk County,45230
+2,Englewood Ave. ,Green C,42.336971,-71.14566,400600,Norfolk County,93000
+3,Dean Road,Green C,42.337807,-71.141853,400600,Norfolk County,93000
+4,Tappan Street,Green C,42.338459,-71.138702,400400,Norfolk County,90179
+5,Washington Square,Green C,42.339394,-71.13533,400400,Norfolk County,90179
+6,Fairbanks Street,Green C,42.339725,-71.131073,400400,Norfolk County,90179
+7,Brandon Hall,Green C,42.340023,-71.129082,400400,Norfolk County,90179
+8,Summit Ave.,Green C,42.34111,-71.12561,400400,Norfolk County,90179
+9,Coolidge Corner,Green C,42.342116,-71.121263,400200,Norfolk County,65045
+10,Saint Paul Street,Green C,42.343327,-71.116997,400100,Norfolk County,80679
+11,Kent Street,Green C,42.344074,-71.114197,400100,Norfolk County,80679
+12,Hawes Street,Green C,42.344906,-71.111145,400100,Norfolk County,80679
+13,St. Mary's St.,Green C,42.345974,-71.107353,400100,Norfolk County,80679
+14,Kenmore,Green C,42.348949,-71.095169,10104,Suffolk County,55278
+15,Hynes Convention Center,Green C,42.347888,-71.087903,10701,Suffolk County,98595
+16,Copley,Green C,42.349974,-71.077447,10600,Suffolk County,93482
+17,Arlington,Green C,42.351902,-71.070893,10702,Suffolk County,118508
+18,Boylston,Green C,42.35302,-71.06459,981700,Suffolk County,102102
+19,Park,Green C,42.35639457,-71.0624242,981700,Suffolk County,102102
+20,Government Center,Green C,42.359705,-71.059215,30300,Suffolk County,102277
+21,Haymarket,Green C,42.363021,-71.05829,30300,Suffolk County,102277
+22,North Station,Green C,42.365577,-71.06129,20303,Suffolk County,81607

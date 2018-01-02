@@ -1,0 +1,100 @@
+---
+title: Income Along the Boston T [Green Line]
+author: Jorge A Rodriguez MD
+date: '2018-01-02'
+slug: income-along-the-boston-t-iii
+---
+
+In my first two parts of this series, we looked at the changes in income along the [<span style="color:orange">The Orange Line</span>](http://translatedmedicine.com/post/income-along-the-boston-t/) and [<span style="color:red">The Red Line</span>](http://translatedmedicine.com/post/income-along-the-boston-t-ii/). I went through [my approach](http://translatedmedicine.com/post/income-along-the-boston-t/) for creating a [New Yorker](https://projects.newyorker.com/story/subway/) inspired visualization of income along the Boston T. 
+
+For this post, we take a look at the <span style="color:green">The Green Line</span>. Below you will see median household income along each of the four lines of the Boston Green Line. 
+
+####B Line
+```{r eval = TRUE, echo= FALSE, message=FALSE}
+library(plotly)
+mbta = read.csv("mbta_full_BGreen.csv")
+```
+
+```{r eval=TRUE, error=FALSE, message=FALSE, echo=FALSE}
+mbta$Station_Name = as.character(mbta$Station_Name)
+mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
+
+bLine = plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
+  add_trace(y=~Income, type="scatter", mode="line", line = list(color="green", width=6)) %>%
+  add_trace(y=~Income, type="scatter", mode="markers", marker=list(color="black", size=8), hoverinfo= 'text',
+        text = ~paste('</br><b>Station Name:</b>', Station_Name,
+                      '</br> Income:', Income,
+                      '</br> Tract:', tract)) %>%
+  layout(title="Median Household Income Along the B Line [Green]", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="", range=c(0, 200000)), margin=list(b=160))
+bLine
+```
+
+####C Line
+```{r eval = TRUE, echo= FALSE, message=FALSE}
+mbta = read.csv("mbta_full_CGreen.csv")
+```
+
+```{r eval=TRUE, error=FALSE, message=FALSE, echo=FALSE}
+mbta$Station_Name = as.character(mbta$Station_Name)
+mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
+
+cLine = plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
+  add_trace(y=~Income, type="scatter", mode="line", line = list(color="green", width=6)) %>%
+  add_trace(y=~Income, type="scatter", mode="markers", marker=list(color="black", size=8), hoverinfo= 'text',
+        text = ~paste('</br><b>Station Name:</b>', Station_Name,
+                      '</br> Income:', Income,
+                      '</br> Tract:', tract)) %>%
+  layout(title="Median Household Income Along the C Line [Green]", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="", range=c(0, 200000)), margin=list(b=160))
+
+cLine
+```
+
+####D Line
+```{r eval = TRUE, echo= FALSE, message=FALSE}
+mbta = read.csv("mbta_full_DGreen.csv")
+```
+
+```{r eval=TRUE, error=FALSE, message=FALSE, echo=FALSE}
+mbta$Station_Name = as.character(mbta$Station_Name)
+mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
+
+dLine = plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
+  add_trace(y=~Income, type="scatter", mode="line", line = list(color="green", width=6)) %>%
+  add_trace(y=~Income, type="scatter", mode="markers", marker=list(color="black", size=8), hoverinfo= 'text',
+        text = ~paste('</br><b>Station Name:</b>', Station_Name,
+                      '</br> Income:', Income,
+                      '</br> Tract:', tract)) %>%
+  layout(title="Median Household Income Along the D Line [Green]", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="", range=c(0, 200000)), margin=list(b=160))
+
+dLine
+```
+
+####E Line
+```{r eval = TRUE, echo= FALSE, message=FALSE}
+mbta = read.csv("mbta_full_EGreen.csv")
+```
+
+```{r eval=TRUE, error=FALSE, message=FALSE, echo=FALSE}
+mbta$Station_Name = as.character(mbta$Station_Name)
+mbta$Station_Name = factor(mbta$Station_Name, levels=unique(mbta$Station_Name))
+
+eLine = plot_ly(mbta, x=~Station_Name, hoverinfo="none") %>%
+  add_trace(y=~Income, type="scatter", mode="line", line = list(color="green", width=6)) %>%
+  add_trace(y=~Income, type="scatter", mode="markers", marker=list(color="black", size=8), hoverinfo= 'text',
+        text = ~paste('</br><b>Station Name:</b>', Station_Name,
+                      '</br> Income:', Income,
+                      '</br> Tract:', tract)) %>%
+  layout(title="Median Household Income Along the E Line [Green]", showlegend=FALSE, xaxis=list(title="", tickangle=-90), yaxis=list(title="", range=c(0, 200000)), margin=list(b=160))
+
+eLine
+```
+*A few notes: *   
+*1. Census tracts cover about 1,200 and 8,000 people*  
+*2. The census tract for Park and Boylston St. did not return a median household income, so I used an adjacent census tract instead.*  
+*3. Sadly, plotly does not support hover on mobile. So, if you want to see more info try hovering over the markers on your laptop.*  
+*6. For code details, please see the first [first post](http://translatedmedicine.com/post/income-along-the-boston-t/).*  
+
+**In Part III, we will take a look at the <span style="color:blue">The Blue Line</span>.**
+
+
+

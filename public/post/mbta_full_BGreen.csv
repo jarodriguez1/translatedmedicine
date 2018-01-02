@@ -1,0 +1,25 @@
+,Station_Name,Line,Latitude,Longitude,tract,county,Income
+1,Boston College,Green B,42.340081,-71.166769,373500,Middlesex County,177083
+2,South Street,Green B,42.34021,-71.157661,402,Suffolk County,51776
+3,Chestnut Hill,Green B,42.338169,-71.15316,503,Suffolk County,56037
+4,Chiswick Road,Green B,42.340805,-71.150711,503,Suffolk County,56037
+5,Sutherland Road,Green B,42.341614,-71.146202,503,Suffolk County,56037
+6,Washington Street,Green B,42.343864,-71.142853,504,Suffolk County,40694
+7,Warren Street,Green B,42.348343,-71.140457,701,Suffolk County,43086
+8,Allston Street,Green B,42.348701,-71.137955,701,Suffolk County,43086
+9,Griggs Street,Green B,42.348545,-71.134949,704,Suffolk County,48633
+10,Harvard Ave. ,Green B,42.350243,-71.131355,704,Suffolk County,48633
+11,Packards Corner,Green B,42.351967,-71.125031,703,Suffolk County,29116
+12,Babcock Street,Green B,42.35182,-71.12165,703,Suffolk County,29116
+13,Pleasant Street,Green B,42.351521,-71.118889,803,Suffolk County,32140
+14,St. Paul Street,Green B,42.351714,-71.116104,803,Suffolk County,32140
+15,Boston Univ. West,Green B,42.350941,-71.113876,803,Suffolk County,32140
+16,Boston Univ. Central,Green B,42.350082,-71.106865,10103,Suffolk County,24444
+17,Boston Univ. East,Green B,42.349735,-71.103889,10103,Suffolk County,24444
+18,Blanford Street,Green B,42.349293,-71.100258,10103,Suffolk County,24444
+19,Kenmore,Green B,42.348949,-71.095169,10104,Suffolk County,55278
+20,Hynes Convention Center,Green B,42.347888,-71.087903,10701,Suffolk County,98595
+21,Copley,Green B,42.349974,-71.077447,10600,Suffolk County,93482
+22,Arlington,Green B,42.351902,-71.070893,10702,Suffolk County,118508
+23,Boylston,Green B,42.35302,-71.06459,981700,Suffolk County,102102
+24,Park,Green B,42.35639457,-71.0624242,981700,Suffolk County,102102
