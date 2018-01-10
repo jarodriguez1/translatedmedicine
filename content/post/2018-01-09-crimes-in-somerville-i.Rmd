@@ -1,0 +1,126 @@
+---
+title: Crimes in Somerville (Time Series)
+author: Jorge A Rodriguez MD
+date: '2018-01-09'
+slug: crimes-in-somerville-i
+---
+
+I recently spotted a [time series heat map.](http://aarongonzales.net/posts/nerd/2017/05/18/bpd_cm_advanced/) So I started on a quest to make my own. Luckily, I found some local data to start with: crimes in [Somerville, MA.](https://data.somervillema.gov/Public-Safety/Police-Selected-Criminal-Incidents/4jey-jqxb) This data set includes selected crimes in Somerville from 2005-2017. 
+
+
+### Handy Packages
+```{r message=FALSE}
+library(tidyverse)
+library(lubridate)
+library(ggthemes)
+library(plotly)
+```
+
+
+### Getting the Data
+```{r}
+somerville = read.csv("Police_-_Selected_Criminal_Incidents.csv")
+```
+
+### Cleaning the Data
+* Remove 2018 data since the year has just started.  
+* This part tackles converting the date column into a date data type. Then, I extracted specific parts of the date: the hour, the day of the week, the month, the year, and the day of the month. 
+```{r message=FALSE}
+somerville$dtreported = mdy_hms(somerville$dtreported)
+somerville$wday = wday(somerville$dtreported  , label=TRUE)
+somerville$month = month(somerville$dtreported, label=TRUE) #pulls out the month. 
+somerville$hour = hour(somerville$dtreported) #pulls out the hour of the day.
+somerville$dayomo = mday(somerville$dtreported) #pulls out the day of the month.
+somerville$year = year(somerville$dtreported) #pulls out the year. 
+somerville = somerville %>%  filter(year !=2018) #removes 2018 data.
+```
+
+### Creating the Graph
+* I used *dplyr* to to get a count by hour and day of the week.  
+* I felt fancy so I used *ggplotly* to make them interactive.
+```{r somerville = somerville %>%  filter(year !=2018)}
+total = somerville %>% count(hour, wday) %>%  #Getting count by hour and day of the week.
+  ggplot(aes(wday, hour, fill=n)) + geom_tile() + #create basic heatmap
+  scale_fill_gradient2(guide="legend") + theme_tufte() + #legend structure & tufte theme
+  theme(text=element_text(size=14), axis.text = element_text(size=14)) + 
+  labs(x="Day of the Week", y="Hour", title="Crimes in Somerville (2005-2017)") + #labels
+  guides(fill=guide_legend(title="Crimes")) + 
+  scale_y_continuous(breaks=seq(0, 23, 3)) #changing y axis
+
+ggplotly(total)
+```
+
+It looks like most crimes happen around 9 in the morning on Tuesdays! 
+
+But what if we look at the breakdown by type of crime. The data set provides an offense variable which has 4 types of crimes: 
+
+* Burglary/breaking and entering 
+* Motor vehicle theft 
+* Robbery  
+* Theft from motor vehicle 
+
+### BURGLARY/BREAKING AND ENTERING
+```{r message=FALSE}
+burg = somerville %>% filter(offense=="BURGLARY/BREAKING AND ENTERING") %>% 
+  count(hour, wday) %>%  #Getting count by hour and day of the week.
+  ggplot(aes(wday, hour, fill=n)) + geom_tile() + #create basic heatmap
+  scale_fill_gradient2(guide="legend") + theme_tufte() + #legend structure & tufte theme
+  theme(text=element_text(size=14), axis.text = element_text(size=14)) + 
+  labs(x="Day of the Week", y="Hour", title="Burglary/Breaking and Entering") + #labels
+  guides(fill=guide_legend(title="Crimes")) + 
+  scale_y_continuous(breaks=seq(0, 23, 3)) #changing y axis
+
+ggplotly(burg)
+```
+
+It seems that most burglaries happen on Wednesday evenings.
+
+### MOTOR VEHICLE THEFT 
+```{r message=FALSE}
+carTheft = somerville %>% filter(offense=="MOTOR VEHICLE THEFT") %>% 
+  count(hour, wday) %>%  #Getting count by hour and day of the week.
+  ggplot(aes(wday, hour, fill=n)) + geom_tile() + #create basic heatmap
+  scale_fill_gradient2(guide="legend") + theme_tufte() + #legend structure & tufte theme
+  theme(text=element_text(size=14), axis.text = element_text(size=14)) + 
+  labs(x="Day of the Week", y="Hour", title="Motor Vehicle Theft") + #labels
+  guides(fill=guide_legend(title="Crimes")) + 
+  scale_y_continuous(breaks=seq(0, 23, 3)) #changing y axis
+
+ggplotly(carTheft)
+```
+
+Car thefts seem to happen on Monday afternoons and around noon time on Thursdays.
+
+### ROBBERY
+```{r message=FALSE}
+rob = somerville %>% filter(offense=="ROBBERY") %>% 
+  count(hour, wday) %>%  #Getting count by hour and day of the week.
+  ggplot(aes(wday, hour, fill=n)) + geom_tile() + #create basic heatmap
+  scale_fill_gradient2(guide="legend") + theme_tufte() + #legend structure & tufte theme
+  theme(text=element_text(size=14), axis.text = element_text(size=14)) + 
+  labs(x="Day of the Week", y="Hour", title="Robbery") + #labels
+  guides(fill=guide_legend(title="Crimes")) + 
+  scale_y_continuous(breaks=seq(0, 23, 3)) #changing y axis
+
+ggplotly(rob)
+```
+
+This makes sense! Most robberies happen Saturday late at night/early in the morning.
+
+### THEFT FROM MOTOR VEHICLE
+```{r message=FALSE}
+theft = somerville %>% filter(offense=="THEFT FROM MOTOR VEHICLE") %>% 
+  count(hour, wday) %>%  #Getting count by hour and day of the week.
+  ggplot(aes(wday, hour, fill=n)) + geom_tile() + #create basic heatmap
+  scale_fill_gradient2(guide="legend") + theme_tufte() + #legend structure & tufte theme
+  theme(text=element_text(size=14), axis.text = element_text(size=14)) + 
+  labs(x="Day of the Week", y="Hour", title="Theft from Motor Vehicle") + #labels
+  guides(fill=guide_legend(title="Crimes")) + 
+  scale_y_continuous(breaks=seq(0, 23, 3)) #changing y axis
+
+#Making it interactive
+ggplotly(theft)
+```
+It looks like most thefts from motor vehicles happen in the morning on weekdays.
+
+There you have it a quick time series visualiation of crime in Somerville.

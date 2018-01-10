@@ -6,10 +6,20 @@
     <description>Recent content on Translated Medicine | Jorge A Rodriguez MD</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Jan 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Crimes in Somerville (Time Series)</title>
+      <link>/post/crimes-in-somerville-i/</link>
+      <pubDate>Tue, 09 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/crimes-in-somerville-i/</guid>
+      <description>I recently spotted a time series heat map. So I started on a quest to make my own. Luckily, I found some local data to start with: crimes in Somerville, MA. This data set includes selected crimes in Somerville from 2005-2017.
+Handy Packageslibrary(tidyverse)library(lubridate)library(ggthemes)library(plotly)Getting the Datasomerville = read.csv(&amp;quot;Police_-_Selected_Criminal_Incidents.csv&amp;quot;)Cleaning the DataRemove 2018 data since the year has just started.</description>
+    </item>
     
     <item>
       <title>Income Along the Boston T [Blue Line]</title>
