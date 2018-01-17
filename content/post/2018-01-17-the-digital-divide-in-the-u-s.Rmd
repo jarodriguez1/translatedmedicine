@@ -1,0 +1,154 @@
+---
+title: The Digital Divide in the U.S.
+author: Jorge A Rodriguez MD
+date: '2018-01-17'
+slug: the-digital-divide-in-the-u-s
+---
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse) 
+library(tidycensus) 
+library(tilegramsR) 
+library(leaflet)
+library(leaflet.extras)
+library(viridis)
+
+
+stateNoInt.final = read.csv("stateNoIntFinal.csv")
+
+baseMap = sf_NPR1to1
+baseMap.centers = sf_NPR1to1.centers
+stateNoInt.final.joined = right_join(baseMap, stateNoInt.final, by="state")
+stateNoInt.final.joined.centers = right_join(baseMap.centers, stateNoInt.final, by="state")
+popText = paste0(as.character(round(stateNoInt.final.joined$percent, 1)),"%")
+getLeafletOptions <- function(minZoom, maxZoom, ...) {
+  leafletOptions(
+    crs = leafletCRS("L.CRS.Simple"),
+    minZoom = minZoom, maxZoom = maxZoom,
+    dragging = FALSE, zoomControl = FALSE,
+    tap = FALSE,
+    attributionControl = FALSE , ...)
+}
+
+int.pal = colorBin("plasma", round(stateNoInt.final.joined.centers$percent), pretty=FALSE, 5)
+
+tileGramMap = leaflet(
+  stateNoInt.final.joined,
+  options= getLeafletOptions(-1.5, -1.5), width = 900) %>%
+  addPolygons(
+    weight=2,color='#000000', group = 'state',
+    fillOpacity = 0.6, opacity = 1, fillColor= ~int.pal(percent),
+    highlightOptions = highlightOptions(weight = 4), 
+    popup = popText) %>%
+  addLabelOnlyMarkers(
+    data=stateNoInt.final.joined.centers,
+    label = ~as.character(state),
+    labelOptions = labelOptions(
+      noHide = 'T', textOnly = T,
+      offset=c(-4,-10), textsize = '12px')) %>%
+  addLegend(pal = int.pal, values = ~percent, opacity = 0.7, position = "bottomright",  
+            labFormat = labelFormat(suffix  = "%"), title="Percent of Households Without Internet") %>% 
+  setMapWidgetStyle()
+```
+
+```{r echo=FALSE}
+tileGramMap
+```
+
+With the release of the [American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.html), there was an opportunity to take a look at the digital divide in 2016.
+
+I was inspired to make a tilegram map similar to those create by [NPR](http://blog.apps.npr.org/2015/05/11/hex-tile-maps.html). I used the tilegramsR package by [Bhaskar Karambelkar](https://bhaskarvk.github.io/tilegramsR/).
+
+First, here are the packages for the job.
+```{r echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+#Data clean up
+library(tidyverse) 
+
+#Obtaining Census data
+library(tidycensus) 
+
+#Needed to create tilegram map
+library(tilegramsR) 
+library(leaflet)
+library(leaflet.extras)
+library(viridis)
+```
+
+### Census Data
+I obtained state level data from the 1 year American Community Survey from 2016:
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+stateNoInt = get_acs(geography = "state", variables = c("B28002_013E", "B28002_001E"), survey = "acs1")
+#B28002_013E --> No Internet Access
+#B28002_001E --> Total population
+```
+
+I tidy-ed the data so that each row represented one state. I also created the percent column. 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+stateNoInt.final= stateNoInt %>% select(-moe) %>%  spread(variable, estimate) %>% 
+  mutate(percent = (B28002_013/ B28002_001)*100)
+```
+
+The census data uses full state names, while the map data uses state abbreviations. To join the dataframes, I had to match the full state names to the state abbreviations: 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+for (i in 1:nrow(stateNoInt.final)) {
+  x = stateNoInt.final$NAME[i]
+  stateNoInt.final$state[i] = state.abb[match(x,state.name)]
+}
+```
+
+A few corrections (sorry, Puerto Rico): 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+stateNoInt.final$state[9] = "DC"
+stateNoInt.final = stateNoInt.final[-52,]
+```
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+stateNoInt.final = read.csv("stateNoIntFinal.csv")
+```
+
+### Making the Map
+The simple features(sf) maps are provided by the tilegramR package: 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+baseMap = sf_NPR1to1
+baseMap.centers = sf_NPR1to1.centers
+```
+
+Joining the census data with the maps data: 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+stateNoInt.final.joined = right_join(baseMap, stateNoInt.final, by="state")
+stateNoInt.final.joined.centers = right_join(baseMap.centers, stateNoInt.final, by="state")
+```
+
+This part of the code comes from [Rpubs by Bhaskar Karambelkar](http://rpubs.com/bhaskarvk/tilegramsR): 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+getLeafletOptions <- function(minZoom, maxZoom, ...) {
+  leafletOptions(
+    crs = leafletCRS("L.CRS.Simple"),
+    minZoom = minZoom, maxZoom = maxZoom,
+    dragging = FALSE, zoomControl = FALSE,
+    tap = FALSE,
+    attributionControl = FALSE , ...)
+}
+```
+
+I created the bins for the data prior to mapping. The rest of the code is adapted from [Rpubs](http://rpubs.com/bhaskarvk/tilegramsR) and it creates the final map: 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+int.pal = colorBin("plasma", round(stateNoInt.final.joined.centers$percent), pretty=FALSE, 5)
+
+tileGramMap = leaflet(
+  stateNoInt.final.joined,
+  options= getLeafletOptions(-1, -1)) %>%
+  addPolygons(
+    weight=2,color='#000000', group = 'state',
+    fillOpacity = 0.6, opacity = 1, fillColor= ~int.pal(percent),
+    highlightOptions = highlightOptions(weight = 4), 
+    popup = as.character(round(stateNoInt.final.joined$percent, 1))) %>%
+  addLabelOnlyMarkers(
+    data=stateNoInt.final.joined.centers,
+    label = ~as.character(state),
+    labelOptions = labelOptions(
+      noHide = 'T', textOnly = T,
+      offset=c(-4,-10), textsize = '12px')) %>%
+  addLegend(pal = int.pal, values = ~percent, opacity = 0.7, position = "bottomright",  
+            labFormat = labelFormat(suffix  = "%"), title="Percent of Households Without Internet") %>% 
+  setMapWidgetStyle()
+```
