@@ -42,7 +42,7 @@ tileGramMap = leaflet(
     weight=2,color='#FFFFFF', group = 'state',
     fillOpacity = 0.6, opacity = 1, fillColor= ~int.pal(rounded_percent),
     highlightOptions = highlightOptions(weight = 4), 
-    popup = as.character(paste0(stateNoInt.final.joined$rounded_percent,"%"))) %>%
+    popup = as.character(paste0(stateNoInt.final.joined$NAME,": ","<b>",stateNoInt.final.joined$rounded_percent,"%", "</b>"))) %>%
   addLabelOnlyMarkers(
     data=stateNoInt.final.joined.centers,
     label = ~as.character(state),
