@@ -1,0 +1,60 @@
+---
+title: The Digital Divide in the U.S. II
+author: Jorge A Rodriguez MD
+date: '2018-01-18'
+---
+<center> <h2>Percent of Households with Mobile Only Internet</h2> </center> 
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse) 
+library(tidycensus) 
+library(tilegramsR) 
+library(leaflet)
+library(leaflet.extras)
+library(viridis)
+
+stateNoInt.final = read.csv("mobile_only.csv")
+
+baseMap = sf_NPR1to1
+baseMap.centers = sf_NPR1to1.centers
+
+stateNoInt.final.joined = right_join(baseMap, stateNoInt.final, by="state")
+stateNoInt.final.joined.centers = right_join(baseMap.centers, stateNoInt.final, by="state")
+
+
+getLeafletOptions <- function(minZoom, maxZoom, ...) {
+  leafletOptions(
+    crs = leafletCRS("L.CRS.Simple"),
+    minZoom = minZoom, maxZoom = maxZoom,
+    dragging = FALSE, zoomControl = FALSE,
+    tap = FALSE,
+    attributionControl = FALSE , ...)
+}
+
+
+stateNoInt.final.joined$rounded_percent = round(stateNoInt.final.joined$percent, 1)
+
+int.pal = colorBin("plasma", stateNoInt.final.joined$rounded_percent, domain = 6:18, bins = 5, pretty = FALSE)
+
+tileGramMap = leaflet(
+  stateNoInt.final.joined,
+  options= getLeafletOptions(-1.5, -1.5)) %>%
+  addPolygons(
+    weight=2,color='#FFFFFF', group = 'state',
+    fillOpacity = 0.6, opacity = 1, fillColor= ~int.pal(rounded_percent),
+    highlightOptions = highlightOptions(weight = 4), 
+    popup = as.character(paste0(stateNoInt.final.joined$rounded_percent,"%"))) %>%
+  addLabelOnlyMarkers(
+    data=stateNoInt.final.joined.centers,
+    label = ~as.character(state),
+    labelOptions = labelOptions(
+      noHide = 'T', textOnly = T,
+      offset=c(-4,-10), textsize = '12px')) %>%
+  addLegend(pal = int.pal, values = ~rounded_percent, opacity = 0.7, position = "bottomright",  
+            labFormat = labelFormat(suffix  = "%"), title="") %>% 
+  setMapWidgetStyle()
+
+tileGramMap
+```
+In the [first part of the series](http://translatedmedicine.com/post/the-digital-divide-in-the-u-s/), I looked at the households without any Internet access in the U.S. However, some people rely on their mobile phone for Internet access, wihch can limit their ability to complete tasks online (i.e., employment search, financial transactions, medical transactions, etc.). So, here I take a look at the percent of household with mobile only Internet acccess in the U.S. This data is derived from the American Community Survey 1-Year Estimates from 2016. It is consistent with estimates from [Pew Research Research Center](http://www.pewresearch.org/fact-tank/2016/10/03/smartphones-help-those-without-broadband-get-online-but-dont-necessarily-bridge-the-digital-divide/). 
+
+
