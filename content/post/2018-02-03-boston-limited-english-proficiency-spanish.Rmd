@@ -64,4 +64,4 @@ This piece of the puzzle creates the map using the leaflet package.
 *- setView allows your to create the default view for the map*
 
 ### Conclusions
-Having lived in Boston for around 9 years, the distribution of the Spanish LEP population is not super suprising, but it does reveal some of the segregation. Next time, we'll take a look at the Haitain-Creole Population.
+Having lived in Boston for around 9 years, the distribution of the Spanish LEP population is not super suprising, but it does reveal some of the segregation. Next time, we'll take a look at the Haitain-Creole speaking population.
