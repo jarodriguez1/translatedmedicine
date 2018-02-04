@@ -1,0 +1,67 @@
+---
+title: 'Boston Limited English Proficient Population: Spanish'
+author: Jorge A Rodriguez MD
+date: '2018-02-03'
+slug: boston-limited-english-proficiency-spanish
+---
+Inspire by [Julia Silge](https://juliasilge.com/blog/using-tidycensus/) and the tidycensus package by [Kyle Walker](https://walkerke.github.io/), I wanted to explore the limited English proficient (LEP) population in Suffolk County (which includes Boston). For those, not in the know, LEP refers people who speak English less than very well. Beyond the overall population, I wanted to get a glimpse into the language diversity of the area. So, I started with the Spanish LEP population here we go!
+
+### Packages
+```{r message=FALSE}
+library(tidycensus) # Great package to easily work with census data
+library(leaflet) # Create maps
+library(viridis) # Color palette
+library(sf) # Map settings
+library(tidyverse) # String extraction using the stringr package
+```
+
+### Getting Census Data
+```{r message=FALSE, results='hide'}
+spanishLEP = get_acs(geography = "tract", 
+            variables = "B16001_005E", 
+            county = "Suffolk",
+            state = "MA",
+            geometry = TRUE, 
+            year=2015, 
+            survey="acs5")
+spanishLEP
+```
+A couple of points here:   
+*In order to get census data you need a [census API key](https://api.census.gov/data/key_signup.html)*   
+*get_acs function takes a few different arguments:*   
+*- geography: determines geographic level for your census data (i.e., tract, country, state)*   
+*- variables: sets the variables for your data. You can take a look all the different data variables for the census year and survey type. For example, load_variables(2015, "acs5", cache = TRUE) will obtain the the variables for the 2015 5-Year American Community Survey.*  
+*- geometry: ensures that the the map polygons are available for mapping.*   
+*- year: sets the year of the survey.*   
+*- survey: sets the survey type, in this case we are using data from the 5-Year American Community Survey from 2011-2015.*   
+
+### Making the Map
+The following code is adapted from [Julias' post](https://juliasilge.com/blog/using-tidycensus/).
+```{r}
+pal =  colorQuantile(palette = "viridis", domain = spanishLEP$estimate, n = 10)
+
+spanishLEP %>%
+  st_transform(crs = "+init=epsg:4326") %>%
+  leaflet(width = "100%") %>%
+  addProviderTiles(provider = "CartoDB.Positron") %>%
+  addPolygons(popup = ~ str_extract(NAME, "^([^,]*)"),
+              stroke = FALSE,
+              smoothFactor = 0,
+              fillOpacity = 0.7,
+              color = ~ pal(estimate)) %>%
+  addLegend("bottomright", 
+            pal = pal, 
+            values = ~ estimate,
+            title = "Spanish Limited English Proficient Population",
+            opacity = 1) %>% 
+  setView(lng=-70.981133, lat=42.3318,zoom=11)
+```
+This piece of the puzzle creates the map using the leaflet package. 
+*st_stransform sets the coordinate reference system for mapping, which to be honest is bit beyond my current knowledge base, but I'm working on it.*  
+*- AddProviderTiles creates the type of map base.*   
+*- AddPolygons creates the tracts for Suffolk county*  
+*- AddLegend creates the legend*  
+*- setView allows your to create the default view for the map*
+
+### Conclusions
+Having lived in Boston for around 9 years, the distribution of the Spanish LEP population is not super suprising, but it does reveal some of the segregation. Next time, we'll take a look at the Haitain-Creole Population.

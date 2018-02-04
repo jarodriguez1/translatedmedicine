@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Translated Medicine | Jorge A Rodriguez MD</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 18 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 03 Feb 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Boston Limited English Proficient Population: Spanish</title>
+      <link>/post/boston-limited-english-proficiency-spanish/</link>
+      <pubDate>Sat, 03 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/boston-limited-english-proficiency-spanish/</guid>
+      <description>Inspire by Julia Silge and the tidycensus package by Kyle Walker, I wanted to explore the limited English proficient (LEP) population in Suffolk County (which includes Boston). For those, not in the know, LEP refers people who speak English less than very well. Beyond the overall population, I wanted to get a glimpse into the language diversity of the area. So, I started with the Spanish LEP population here we go!</description>
+    </item>
     
     <item>
       <title>The Digital Divide in the U.S. II</title>
