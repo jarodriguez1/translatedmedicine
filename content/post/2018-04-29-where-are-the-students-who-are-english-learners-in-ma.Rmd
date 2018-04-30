@@ -1,0 +1,86 @@
+---
+title: "Where are the students who are English Learners in MA?"
+author: "Jorge A Rodriguez MD"
+date: '2018-04-29'
+slug: where-are-the-students-who-are-english-learners-in-ma
+---
+Inspired by my wife's work in educating students who are English Learners, this post visualizes the English Learners across Massachusetts.
+
+The Massachusetts Department of Education publishes a large amount of education data from across the state. It provides yearly percentages of enrolled student and their characteristics, including English Learners. English Learners are defined as students age 3-21 who were not born in the US or whose native language is not English. They suffer educational disparities and have higher dropout rates than their English speaking counterparts.
+
+With that introduction in mind, lets get to it.
+
+# The packages: 
+```{r warning=FALSE, eval=TRUE, error= FALSE, message=FALSE}
+library(tidyverse) # a classic
+library(viridis) # for color palettes 
+library(sf) #to read a display shapefiles that create the map
+library(leaflet) # to make interactive map
+```
+
+# The data: 
+## Source
+The map file comes from [Mass GIS](https://docs.digital.mass.gov/dataset/massgis-data-public-school-districts).
+The education data from the [Massachusetts Department of Education](http://profiles.doe.mass.edu/state_report/selectedpopulations.aspx?mode=district&year=2018&orderBy=LEPPCT%20DESC) 
+The **district_sf** variable contains the shapefile for the map. The **elma** variable contains the data on English Learners in each district. 
+```{r warning=FALSE, eval=TRUE, error= FALSE, message=FALSE}
+district_sf = st_read("schooldistricts/SCHOOLDISTRICTS_POLY.shp")
+elma = read.csv("selectedpopulations.xls.csv", stringsAsFactors = F, header = T)
+elma = elma[-1,] #removes an empty row
+```
+
+# The wrangling: 
+## Step 1
+There were a few variable types that needed to be changed. The **paste0** creates a new variable with a leading zero for district code to help in merging data sets later on.
+```{r warning=FALSE, eval=TRUE, error= FALSE, message=FALSE}
+district_sf$ORG_CODE = as.character(district_sf$ORG_CODE) 
+elma$ORGCODE = as.character(elma$ORGCODE)
+
+district_sf$DISTRICT = as.character(district_sf$DISTRICT)
+elma$ï..DISTRICT = as.character(elma$ï..DISTRICT)
+
+elma$ORGCODE_E = paste0("0", elma$ORGCODE)
+```
+
+## Step 2
+This was by far the trickiest step! I use a series of left joins to join the data from the MA DOE to the district level shapefile. The challenge is was that after each left join I had a column with some rows with NAs. In order to combine the columns and fill in the NAs, I used the  **mutate** step used the **coaslece** function. My understanding is that the **coaslece** function combines columns and replaces rows with NA values with from other columns that have a value listed for that row.
+```{r warning=FALSE, eval=TRUE, error= FALSE, message=FALSE}
+district_sf = district_sf %>% left_join(elma, by=c("ORG_CODE" = "ORGCODE")) %>%
+  left_join(elma, by=c("ORG_CODE" = "ORGCODE_E")) %>%
+  left_join(elma, by = c("DISTRICT"="ï..DISTRICT")) %>%
+  mutate(XEL1 = coalesce(X.1.x, X.1.y, X.1))
+
+district_sf$XEL1 = as.numeric(district_sf$XEL1)
+```
+
+##Step 3
+I removed the charter districts since they covered large areas and were different than the rest of the districts listed.
+```{r warning=FALSE, eval=TRUE, error= FALSE, message=FALSE}
+district_sf = district_sf %>% filter(MADISTTYPE != "Charter - Commonwealth" & MADISTTYPE != "Charter - Horace Mann")
+```
+
+#The map: 
+The map represents the percentage of EL students in each district presented as percentiles.
+```{r warning=FALSE, eval=TRUE, error= FALSE, message=FALSE}
+pal = colorQuantile(palette = "viridis", domain = as.numeric(district_sf$XEL1), n = 10)
+
+mapel = district_sf %>%
+  st_transform(crs = '+proj=longlat +datum=WGS84') %>% 
+  leaflet(width = "100%") %>%
+  addProviderTiles(provider = "CartoDB.Positron") %>%
+  addPolygons(popup = ~ paste0(DISTRICT, ":", XEL1, "%"),
+              stroke = FALSE,
+              smoothFactor = 0,
+              weight = 2,
+              fillOpacity = 0.7, 
+              color = ~ pal(XEL1)) %>% 
+  addLegend("bottomright", 
+            pal = pal, 
+            values = ~ XEL1,
+            title = "% English Learners in MA (Percentiles)",
+            opacity = 1)
+
+mapel
+```
+
+That's it! The MA Department of Education has data dating back to the 1990s, so my next step is to tackle these years with the hopes of creating a Shiny app to explore the data over time.
