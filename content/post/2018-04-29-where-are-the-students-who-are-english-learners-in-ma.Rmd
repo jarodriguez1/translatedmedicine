@@ -1,7 +1,7 @@
 ---
 title: "Where are the students who are English Learners in MA?"
 author: "Jorge A Rodriguez MD"
-date: '2018-04-29'
+date: '2018-04-30'
 slug: where-are-the-students-who-are-english-learners-in-ma
 ---
 Inspired by my wife's work in educating students who are English Learners, this post visualizes the English Learners across Massachusetts.
