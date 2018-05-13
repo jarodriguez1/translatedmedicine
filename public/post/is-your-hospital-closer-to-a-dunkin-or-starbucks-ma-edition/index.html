@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Jorge A Rodriguez MD">
+<meta name="description" content="Bridging the digital divide in digital health">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Is Your Hospital Closer to a Dunkin or Starbucks? (MA edition)</title>
+<link rel="shortcut icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+<link rel="stylesheet" href="/css/my_css.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+
+<meta property="og:title" content="Is Your Hospital Closer to a Dunkin or Starbucks? (MA edition)" />
+<meta property="og:description" content="This post is inspired by #tidytuesday. Coffee is the life force for many healthcare workers. Here too, the age old question arises: Dunkin or Starbucks? Sometimes, it just comes down to proximity. We need coffee and we need it now! So, I decided to see what chain was closest to each hospital in Massachusetts.
+Data SourcesStarbucks locations: Dunkin locations: Hospital locations:
+The Packageslibrary(tidyverse)library(tidycensus)library(jsonlite)library(geosphere)The Datastarb = read." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/is-your-hospital-closer-to-a-dunkin-or-starbucks-ma-edition/" />
+
+
+
+<meta property="article:published_time" content="2018-05-13T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-05-13T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Is Your Hospital Closer to a Dunkin or Starbucks? (MA edition)">
+<meta itemprop="description" content="This post is inspired by #tidytuesday. Coffee is the life force for many healthcare workers. Here too, the age old question arises: Dunkin or Starbucks? Sometimes, it just comes down to proximity. We need coffee and we need it now! So, I decided to see what chain was closest to each hospital in Massachusetts.
+Data SourcesStarbucks locations: Dunkin locations: Hospital locations:
+The Packageslibrary(tidyverse)library(tidycensus)library(jsonlite)library(geosphere)The Datastarb = read.">
+
+
+<meta itemprop="datePublished" content="2018-05-13T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-05-13T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="583">
+
+
+
+<meta itemprop="keywords" content="" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Is Your Hospital Closer to a Dunkin or Starbucks? (MA edition)"/>
+<meta name="twitter:description" content="This post is inspired by #tidytuesday. Coffee is the life force for many healthcare workers. Here too, the age old question arises: Dunkin or Starbucks? Sometimes, it just comes down to proximity. We need coffee and we need it now! So, I decided to see what chain was closest to each hospital in Massachusetts.
+Data SourcesStarbucks locations: Dunkin locations: Hospital locations:
+The Packageslibrary(tidyverse)library(tidycensus)library(jsonlite)library(geosphere)The Datastarb = read."/>
+<meta name="twitter:site" content="@https://www.twitter.com/translatedmed"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/about/'>About Me</a>
+  	
+
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Is Your Hospital Closer to a Dunkin or Starbucks? (MA edition)</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        May 13, 2018
+        <br>
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        <p><img src="hops_2.png" /> <img src="hops_1.png" /></p>
+<p>This post is <a href="https://twitter.com/thomas_mock">inspired</a> by <a href="https://github.com/rfordatascience/tidytuesday/blob/master/README.md">#tidytuesday</a>. Coffee is the life force for many healthcare workers. Here too, the age old question arises: Dunkin or Starbucks? Sometimes, it just comes down to proximity. We need coffee and we need it now! So, I decided to see what chain was closest to each hospital in Massachusetts.</p>
+<div id="data-sources" class="section level1">
+<h1>Data Sources</h1>
+<p><a href="https://www.kaggle.com/starbucks/store-locations">Starbucks locations:</a> <a href="http://www.odditysoftware.com/download/download.php?filename=dunkin-donuts.zip">Dunkin locations:</a> <a href="https://data.medicare.gov/Hospital-Compare/Hospital-General-Information/xubh-q36u">Hospital locations:</a></p>
+</div>
+<div id="the-packages" class="section level1">
+<h1>The Packages</h1>
+<pre class="r"><code>library(tidyverse)
+library(tidycensus)
+library(jsonlite)
+library(geosphere)</code></pre>
+</div>
+<div id="the-data" class="section level1">
+<h1>The Data</h1>
+<pre class="r"><code>starb = read.csv(&quot;directory.csv/directory.csv&quot;)
+dfHosp = read.csv(&quot;Hospital_General_Information.csv&quot;)
+dunks = read.csv(&quot;dunkin_donuts.csv&quot;)</code></pre>
+</div>
+<div id="the-wrangling" class="section level1">
+<h1>The Wrangling</h1>
+<div id="filtering-for-massachusetts-locations-only" class="section level2">
+<h2>Filtering for Massachusetts locations only</h2>
+<pre class="r"><code>starbMA = starbUS %&gt;% filter(State.Province == &quot;MA&quot;)
+dfHospMA = dfHosp %&gt;% filter(State == &quot;MA&quot;)
+dunksMA = dunks %&gt;% filter(e_state == &quot;MA&quot;)</code></pre>
+</div>
+<div id="geocoding-hospital-location" class="section level2">
+<h2>Geocoding Hospital Location</h2>
+<p>Google provides a powerful <a href="https://developers.google.com/maps/documentation/geocoding/start">geocoding API</a>. More on this in a future post. The code may not be pretty, but it uses the hospital location obtain longitude and latitude.</p>
+<pre class="r"><code>dfHospMA$lat = NaN
+dfHospMA$lon = NaN
+dfHospMA$geo_address = NaN
+
+for (i in 1:nrow(dfHospMA)) {
+  print(i)
+  dfLocation = paste0(dfHospMA$Address[i], &quot;,&quot;, dfHospMA$City[i], &quot;,&quot;, dfHospMA$State[i])
+  dfLocation = gsub(&#39; &#39;,&#39;+&#39;,dfLocation)
+  dfURL = paste0(&quot;https://maps.googleapis.com/maps/api/geocode/json?address=&quot;,dfLocation,&quot;&amp;key=&quot;,api_key)
+  dfJSON = fromJSON(dfURL)
+  dfHospMA$lat[i] = dfJSON$results$geometry$location$lat
+  dfHospMA$lon[i] = dfJSON$results$geometry$location$lng
+  dfHospMA$geo_address[i] = dfJSON$results$formatted_address
+}</code></pre>
+<p>Just a few corrections for geocoding errors I found.</p>
+<pre class="r"><code>dfHospMA$lat[2] = 42.4842322
+dfHospMA$lon[2]  = -71.204072
+
+dfHospMA$lat[52] = 41.564962
+dfHospMA$lon[52]  = -70.621126</code></pre>
+</div>
+<div id="calcuting-distances" class="section level2">
+<h2>Calcuting Distances</h2>
+<p>I am by no means an expert on calculating geospatial distances. However, from my initial reading, there are various formulas to calculate the straight line distance between 2 points. Here I use the <em>distVincentyEllipsoid</em> function from the <em>geosphere</em> package. So, I calculate the distance from each starbucks to each hospital and create a master dataframe with this data called <em>final_df</em>.</p>
+<pre class="r"><code>final_df = data.frame(org=NaN, dist = NaN, hospName = NaN, type = NaN)
+temp_df = data.frame(org=NaN, dist = NaN, hospName = NaN, type = NaN)
+
+for (i in 1:nrow(dfHospMA)) {
+  for (j in 1:nrow(starbMA)) {
+    x = distVincentyEllipsoid(c(starbMA$Longitude[j], starbMA$Latitude[j]), c(dfHospMA$lon[i], dfHospMA$lat[i]))
+    temp_df$org = starbMA$Store.Number[j]
+    temp_df$dist = x
+    temp_df$hospName = dfHospMA$Hospital.Name[i]
+    temp_df$type = &quot;starbucks&quot;
+    final_df = rbind(final_df, temp_df) 
+    print(i)
+    print(x)
+    print(&quot;star&quot;)
+  }
+}
+
+for (i in 1:nrow(dfHospMA)) {
+  for (j in 1:nrow(dunksMA)) {
+    x = distVincentyEllipsoid(c(dunksMA$loc_LONG_poly[j], dunksMA$loc_LAT_poly[j]), c(dfHospMA$lon[i], dfHospMA$lat[i]))
+    temp_df$org = dunksMA$id[j]
+    temp_df$dist = x
+    temp_df$hospName = dfHospMA$Hospital.Name[i]
+    final_df = rbind(final_df, temp_df) 
+    temp_df$type = &quot;dunkin&quot;
+    print(i)
+    print(x)
+    print(&quot;dunks&quot;)
+  }
+}</code></pre>
+</div>
+</div>
+<div id="the-visualization" class="section level1">
+<h1>The Visualization</h1>
+<p>I grouped the data by hospital and chain type (Staburcks or Dunkin). Then I calculated the minimum distance to each chain and chose whether Dunkin or Starbucks was the closest. I finally calcutated the difference between the closest Starbucks and the closest Dunkin to determine, which chain was your best bet for each hospital.</p>
+<p>Finally, I plotted the whether the hospital was closer to a Dunkin or Starbucks. As a caveat, there are 273 Starbucks in MA and 497 Dunkin in MA, so Dunkin has an advantage.</p>
+<pre class="r"><code>final_df %&gt;% filter(!is.na(dist)) %&gt;% group_by(hospName, type) %&gt;% summarize(t = min(dist)) %&gt;% 
+  spread(type, t) %&gt;% mutate(diff = dunkin - starbucks) %&gt;% mutate(k =diff/1000) %&gt;%
+  mutate(winner = if_else(diff &lt; 0, &quot;dunkin&quot;, &quot;starbucks&quot;)) %&gt;% 
+  arrange(hospName) %&gt;% 
+  ggplot(aes(k, desc(hospName), label=hospName, color = winner)) + geom_point(size=2.5) + theme_minimal() + 
+  scale_color_manual(values = c(&quot;#E11383&quot;, &quot;#00704a&quot;), 
+                     labels=c(&quot;Dunkin Donuts&quot;, &quot;Starbucks&quot;), 
+                     name = &quot;&quot;) +
+  scale_x_continuous(labels = c(&quot;0&quot;), breaks = c(0)) +
+  #geom_text(hjust=1.1, vjust=0.2, size=2.2, color=&quot;black&quot;) +
+  theme(axis.title.x = element_text(size = 14), 
+        axis.text.x = element_text(size = 14), 
+        axis.text.y = element_blank(), 
+        title = element_text(size=16)) +
+  theme(panel.grid = element_blank()) +
+  theme(legend.position = &quot;top&quot;,
+        legend.text = element_text(size=18)) +
+  geom_vline(xintercept=0, color=&quot;gray&quot;, linetype=&quot;dashed&quot;, size=1.5) +
+  labs(y=&quot;&quot;, x=&quot;Distance Difference (km)&quot;, title = &quot;Dunkin vs. Starbucks: Hospital Edition (MA)&quot;, 
+       subtitle = &quot;Is your hospital closer to Dunkin or Starbucks? (0 = equidistant | Each point represents a hospital)&quot;, 
+       caption=&quot;@translatedmed&quot;) </code></pre>
+</div>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    <a href="https://twitter.com/translatedmed">
+    <img class="avatar" src="/images/avatar.png">
+    <div>
+        <span class="dark">Jorge A Rodriguez MD</span>
+        <span>I am a physician and informatician.</span>
+    </div>
+    </a>
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=%2fpost%2fis-your-hospital-closer-to-a-dunkin-or-starbucks-ma-edition%2f - Is%20Your%20Hospital%20Closer%20to%20a%20Dunkin%20or%20Starbucks%3f%20%28MA%20edition%29 by @translatedmed"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/post/where-are-the-students-who-are-english-learners-in-ma/">Where are the students who are English Learners in MA?<aside class="dates">Apr 30 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/boston-limited-english-proficiency-spanish/">Boston Limited English Proficient Population: Spanish<aside class="dates">Feb 3 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/2018-01-18-the-digital-divide-in-the-u-s-ii/">The Digital Divide in the U.S. II<aside class="dates">Jan 18 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/the-digital-divide-in-the-u-s/">The Digital Divide in the U.S.<aside class="dates">Jan 17 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/crimes-in-somerville-i/">Crimes in Somerville (Time Series)<aside class="dates">Jan 9 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/income-along-the-boston-t-iv/">Income Along the Boston T [Blue Line]<aside class="dates">Jan 4 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/income-along-the-boston-t-iii/">Income Along the Boston T [Green Line]<aside class="dates">Jan 2 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/income-along-the-boston-t-ii/">Income Along the Boston T [Red Line]<aside class="dates">Dec 21 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/income-along-the-boston-t/">Income Along the Boston T [Orange Line]<aside class="dates">Dec 12 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/call-me-anytime/">Call Me Anytime<aside class="dates">Feb 20 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.linkedin.com/in/jorgearodriguezmd">
+        <i class="fa fa-linkedin"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/translatedmed">
+        <i class="fa fa-twitter"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2018 Jorge A Rodriguez MD
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-111273192-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

@@ -6,18 +6,20 @@
     <description>Recent content in Posts on Translated Medicine | Jorge A Rodriguez MD</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 13 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Test</title>
-      <link>/post/test/</link>
-      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      <title>Is Your Hospital Closer to a Dunkin or Starbucks? (MA edition)</title>
+      <link>/post/is-your-hospital-closer-to-a-dunkin-or-starbucks-ma-edition/</link>
+      <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/test/</guid>
-      <description>tset</description>
+      <guid>/post/is-your-hospital-closer-to-a-dunkin-or-starbucks-ma-edition/</guid>
+      <description>This post is inspired by #tidytuesday. Coffee is the life force for many healthcare workers. Here too, the age old question arises: Dunkin or Starbucks? Sometimes, it just comes down to proximity. We need coffee and we need it now! So, I decided to see what chain was closest to each hospital in Massachusetts.
+Data SourcesStarbucks locations: Dunkin locations: Hospital locations:
+The Packageslibrary(tidyverse)library(tidycensus)library(jsonlite)library(geosphere)The Datastarb = read.</description>
     </item>
     
     <item>
