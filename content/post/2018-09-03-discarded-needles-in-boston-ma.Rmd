@@ -1,0 +1,38 @@
+---
+title: "Discarded Needles in Boston, MA"
+author: "Jorge A Rodriguez MD"
+date: '2018-09-03'
+slug: discarded-needles-in-boston-ma
+---
+
+```{r echo=FALSE, warning=FALSE, eval=TRUE, error= FALSE, message=FALSE}
+library(tidyverse)
+library(leaflet)
+library(leaflet.extras)
+
+api_key = "AIzaSyBz-Jae35O8ArQQNy-z1Id4VlLulB4WW4c"
+x = read.csv("needles_map.csv")
+
+
+leaflet(width = "125%") %>% 
+  addProviderTiles(providers$Stamen.TonerLite)  %>% 
+  addFullscreenControl(position = "bottomleft", pseudoFullscreen = TRUE) %>% 
+  setView(zoom = 13, lat = 42.3503, lng = -71.0810) %>% 
+  addAwesomeMarkers(lng = x$Longitude, lat = x$Latitude, popupOptions = popupOptions(minWidth = 500), clusterOptions = markerClusterOptions(showCoverageOnHover = F),
+             popup = paste("<table style='width:100%'; height='70%'><tr><td><img src=", x$SubmittedPhoto, "height='250' width='250'><h4>Discarded Needle</br></h4>", x$open_dt,"<br>", x$Source, "</td>", 
+                           "<td><img src=", x$street_path, "height='250' width='250'><h4>Street View</br></h4>Google Street View</td></tr></table>"))
+```
+
+## Discarded Needles in Boston
+>Displays a selection of 3064 discarded needles reported to Boston's 311 service from May 2015 to May 2018
+
+*Click on the blue markers to reveal images*  
+*Click on the circles to reveal clusters*  
+*Click on the bottom left for fullscreen view*
+
+* [Inspired by our published work](https://www.ncbi.nlm.nih.gov/m/pubmed/30138067/)
+* [Data: Boston 311](https://data.boston.gov/dataset/311-service-requests)
+* [Mobile Sharps Team](http://www.bphc.org/whatwedo/Recovery-Services/services-for-active-users/Pages/Safe-Needle-and-Syringe-Disposal.aspx)
+
+
+
