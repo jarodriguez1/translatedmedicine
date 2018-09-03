@@ -36,5 +36,5 @@ leaflet(width = "125%") %>%
 * [Data: Boston 311](https://data.boston.gov/dataset/311-service-requests)
 * [Mobile Sharps Team](http://www.bphc.org/whatwedo/Recovery-Services/services-for-active-users/Pages/Safe-Needle-and-Syringe-Disposal.aspx)
 
-
+*Note: This is a work in progress*
 
