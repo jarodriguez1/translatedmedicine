@@ -10,8 +10,10 @@ library(tidyverse)
 library(leaflet)
 library(leaflet.extras)
 
-api_key = "AIzaSyBz-Jae35O8ArQQNy-z1Id4VlLulB4WW4c"
+y = read.table("needleReg.txt")
+api_key = y
 x = read.csv("needles_map.csv")
+
 
 
 leaflet(width = "125%") %>% 
