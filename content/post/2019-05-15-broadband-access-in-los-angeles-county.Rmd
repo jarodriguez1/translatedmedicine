@@ -1,0 +1,44 @@
+---
+title: Broadband Access in Los Angeles County
+author: Jorge A Rodriguez MD
+date: '2019-05-15'
+slug: broadband-access-in-los-angeles-county
+categories: []
+tags: []
+---
+
+Inspired by a conversation at the Society of General Internal Medicine Conference, I wanted to quickly explore broadband access in the Los Angeles County. 
+
+#####Data Source: American Commutnity Survey 5-year (2013-2017)
+Packages: tidyvere, tidycensus, lealfet, leaflet.extras, sf
+
+```{r message=FALSE, results='hide', warning=FALSE}
+library(tidyverse)
+library(tidycensus)
+library(leaflet)
+library(leaflet.extras)
+library(sf)
+```
+
+```{r message=FALSE, results='hide', warning=FALSE}
+la_internet = get_acs(variables = "DP02_0152P", geography = "tract", year = 2017, 
+                      state = "CA", county = "Los Angeles", geometry = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+pal <- colorNumeric(palette = "GnBu", domain = la_internet$estimate)
+
+la_internet %>% st_transform(crs = "+init=epsg:4326") %>%
+  leaflet() %>% addFullscreenControl("bottomleft", pseudoFullscreen = TRUE) %>%
+  addProviderTiles(provider = "CartoDB.Positron") %>%
+  addPolygons(popup = ~ str_extract(estimate, "^([^,]*)"),
+              stroke = FALSE,smoothFactor = 0,
+              fillOpacity = 0.7,
+              color = ~ pal(estimate)) %>%
+  addLegend("bottomright",
+            pal = pal,
+            values = ~ estimate,
+            title = "% Household with Broadband Access",
+            opacity = 1)
+```
+

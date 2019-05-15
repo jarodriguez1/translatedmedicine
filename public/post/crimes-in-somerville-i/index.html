@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Jorge A Rodriguez MD">
 <meta name="description" content="Bridging the digital divide in digital health">
-<meta name="generator" content="Hugo 0.31.1" />
+<meta name="generator" content="Hugo 0.55.5" />
 <title>Crimes in Somerville (Time Series)</title>
 <link rel="shortcut icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/style.css">
@@ -26,22 +26,8 @@
 Handy Packageslibrary(tidyverse)library(lubridate)library(ggthemes)library(plotly)Getting the Datasomerville = read.csv(&quot;Police_-_Selected_Criminal_Incidents.csv&quot;)Cleaning the DataRemove 2018 data since the year has just started." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/crimes-in-somerville-i/" />
-
-
-
 <meta property="article:published_time" content="2018-01-09T00:00:00&#43;00:00"/>
-
 <meta property="article:modified_time" content="2018-01-09T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -58,7 +44,8 @@ Handy Packageslibrary(tidyverse)library(lubridate)library(ggthemes)library(p
 
 <meta itemprop="keywords" content="" />
 
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Crimes in Somerville (Time Series)"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Crimes in Somerville (Time Series)"/>
 <meta name="twitter:description" content="I recently spotted a time series heat map. So I started on a quest to make my own. Luckily, I found some local data to start with: crimes in Somerville, MA. This data set includes selected crimes in Somerville from 2005-2017.
 Handy Packageslibrary(tidyverse)library(lubridate)library(ggthemes)library(plotly)Getting the Datasomerville = read.csv(&quot;Police_-_Selected_Criminal_Incidents.csv&quot;)Cleaning the DataRemove 2018 data since the year has just started."/>
 <meta name="twitter:site" content="@https://www.twitter.com/translatedmed"/>
@@ -92,7 +79,8 @@ Handy Packageslibrary(tidyverse)library(lubridate)library(ggthemes)library(p
         </h2>
     </header>
     <section id="post-body">
-        <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+        
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
 <script src="/rmarkdown-libs/plotly-binding/plotly.js"></script>
 <script src="/rmarkdown-libs/typedarray/typedarray.min.js"></script>
 <script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
@@ -259,6 +247,10 @@ ggplotly(theft)</code></pre>
     
     
         <li>
+            <a href="/post/broadband-access-in-los-angeles-county/">Broadband Access in Los Angeles County<aside class="dates">May 15 2019</aside></a>
+        </li>
+    
+        <li>
             <a href="/post/discarded-needles-in-boston-ma/">Discarded Needles in Boston, MA<aside class="dates">Sep 3 2018</aside></a>
         </li>
     
@@ -294,10 +286,6 @@ ggplotly(theft)</code></pre>
             <a href="/post/income-along-the-boston-t-ii/">Income Along the Boston T [Red Line]<aside class="dates">Dec 21 2017</aside></a>
         </li>
     
-        <li>
-            <a href="/post/income-along-the-boston-t/">Income Along the Boston T [Orange Line]<aside class="dates">Dec 12 2017</aside></a>
-        </li>
-    
 </ul>
 
 
@@ -323,7 +311,7 @@ ggplotly(theft)</code></pre>
     
     <p class="small">
     
-        © Copyright 2018 Jorge A Rodriguez MD
+        © Copyright 2019 Jorge A Rodriguez MD
     
     </p>
 </footer>
@@ -337,14 +325,17 @@ ggplotly(theft)</code></pre>
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-111273192-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-111273192-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
