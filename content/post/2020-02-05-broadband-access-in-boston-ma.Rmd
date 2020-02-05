@@ -1,0 +1,44 @@
+---
+title: "Broadband Access in Boston, MA"
+author: "Jorge A Rodriguez MD"
+date: '2020-02-05'
+slug: broadband-access-in-boston-ma
+tags: []
+categories: []
+---
+
+Inspired by a conversation at a coffee shop conversation, I wanted to quickly explore broadband access in the Boston (Suffolk County). 
+
+#####Data Source: American Commutnity Survey 5-year (2013-2017)
+Packages: tidyvere, tidycensus, lealfet, leaflet.extras, sf
+
+```{r message=FALSE, results='hide', warning=FALSE}
+library(tidyverse)
+library(tidycensus)
+library(leaflet)
+library(leaflet.extras)
+library(sf)
+```
+
+```{r message=FALSE, results='hide', warning=FALSE}
+ma_internet = get_acs(variables = "DP02_0152P", geography = "tract", year = 2017, 
+                      state = "MA", county = "Suffolk County", geometry = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+pal <- colorNumeric(palette = "GnBu", domain = ma_internet$estimate)
+
+ma_internet %>% st_transform(crs = "+init=epsg:4326") %>%
+  leaflet() %>% addFullscreenControl("bottomleft", pseudoFullscreen = TRUE) %>%
+  addProviderTiles(provider = "CartoDB.Positron") %>%
+  addPolygons(popup = ~ str_extract(estimate, "^([^,]*)"),
+              stroke = FALSE,smoothFactor = 0,
+              fillOpacity = 0.7,
+              color = ~ pal(estimate)) %>%
+  addLegend("bottomright",
+            pal = pal,
+            values = ~ estimate,
+            title = "% Household with Broadband Access",
+            opacity = 1)
+```
+

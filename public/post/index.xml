@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Translated Medicine | Jorge A Rodriguez MD</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Broadband Access in Boston, MA</title>
+      <link>/post/broadband-access-in-boston-ma/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/broadband-access-in-boston-ma/</guid>
+      <description>Inspired by a conversation at a coffee shop conversation, I wanted to quickly explore broadband access in the Boston (Suffolk County).
+Data Source: American Commutnity Survey 5-year (2013-2017)Packages: tidyvere, tidycensus, lealfet, leaflet.extras, sf
+library(tidyverse)library(tidycensus)library(leaflet)library(leaflet.extras)library(sf)la_internet = get_acs(variables = &amp;quot;DP02_0152P&amp;quot;, geography = &amp;quot;tract&amp;quot;, year = 2017, state = &amp;quot;MA&amp;quot;, county = &amp;quot;Suffolk County&amp;quot;, geometry = TRUE)pal &amp;lt;- colorNumeric(palette = &amp;quot;GnBu&amp;quot;, domain = la_internet$estimate)la_internet %&amp;gt;% st_transform(crs = &amp;quot;+init=epsg:4326&amp;quot;) %&amp;gt;%leaflet() %&amp;gt;% addFullscreenControl(&amp;quot;bottomleft&amp;quot;, pseudoFullscreen = TRUE) %&amp;gt;%addProviderTiles(provider = &amp;quot;CartoDB.</description>
+    </item>
     
     <item>
       <title>Broadband Access in Los Angeles County</title>
