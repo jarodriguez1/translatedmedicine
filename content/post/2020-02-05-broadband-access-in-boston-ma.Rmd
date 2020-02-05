@@ -22,7 +22,8 @@ library(sf)
 
 ```{r message=FALSE, results='hide', warning=FALSE}
 ma_internet = get_acs(variables = "DP02_0152P", geography = "tract", year = 2017, 
-                      state = "MA", county = "Suffolk County", geometry = TRUE)
+                      state = "MA", county = c("Suffolk County", "Middlesex County", "Norfolk County"),
+                      geometry = TRUE)
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -30,7 +31,7 @@ pal <- colorNumeric(palette = "GnBu", domain = ma_internet$estimate)
 
 ma_internet %>% st_transform(crs = "+init=epsg:4326") %>%
   leaflet() %>% addFullscreenControl("bottomleft", pseudoFullscreen = TRUE) %>%
-  addProviderTiles(provider = "CartoDB.Positron") %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
   addPolygons(popup = ~ str_extract(estimate, "^([^,]*)"),
               stroke = FALSE,smoothFactor = 0,
               fillOpacity = 0.7,
